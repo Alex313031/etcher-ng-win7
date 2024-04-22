@@ -117,15 +117,18 @@
     "styled-components": "5.3.11",
     "sys-class-rgb-led": "3.0.1",
     "terser-webpack-plugin": "5.3.10",
-    "ts-loader": "8.0.12",
+    "ts-loader": "8.4.0",
     "ts-node": "9.1.1",
-    "tslib": "2.0.0",
-    "typescript": "4.4.4",
+    "tslib": "2.3.1",
+    "typescript": "4.6.4",
     "url-loader": "4.1.1",
-    "uuid": "8.1.0",
-    "webpack": "5.11.0",
-    "webpack-cli": "4.2.0",
-    "webpack-dev-server": "4.5.0"
+    "uuid": "9.0.1",
+    "webpack": "5.24.4",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.15.2"
+  },
+  "engines": {
+    "node": ">=14 <18"
   },
   "versionist": {
     "publishedAt": "2022-04-22T13:10:47.906Z"
