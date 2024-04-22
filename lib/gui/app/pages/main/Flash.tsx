@@ -98,7 +98,7 @@ async function flashImageToDrive(
 	// otherwise Windows throws EPERM
 	driveScanner.stop();
 
-	const iconPath = path.join('media', 'icon.png');
+	const iconPath = path.join('media', 'icon48.png');
 	const basename = path.basename(image.path);
 	try {
 		await imageWriter.flash(image, drives);

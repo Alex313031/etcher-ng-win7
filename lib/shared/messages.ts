@@ -91,7 +91,7 @@ export const warning = {
 	exitWhileFlashing: () => {
 		return [
 			'You are currently flashing a drive.',
-			'Closing Etcher may leave your drive in an unusable state.',
+			'Closing Etcher-ng may leave your drive in an unusable state.',
 		].join(' ');
 	},
 
@@ -149,7 +149,7 @@ export const error = {
 
 	validation: () => {
 		return [
-			'The write has been completed successfully but Etcher detected potential',
+			'The write has been completed successfully but Etcher-ng detected potential',
 			'corruption issues when reading the image back from the drive.',
 			'\n\nPlease consider writing the image to a different drive.',
 		].join(' ');
@@ -176,7 +176,7 @@ export const error = {
 
 	driveUnplugged: () => {
 		return [
-			'Looks like Etcher lost access to the drive.',
+			'Looks like Etcher-ng lost access to the drive.',
 			'Did it get unplugged accidentally?',
 			"\n\nSometimes this error is caused by faulty readers that don't provide stable access to the drive.",
 		].join(' ');
@@ -184,7 +184,7 @@ export const error = {
 
 	inputOutput: () => {
 		return [
-			'Looks like Etcher is not able to write to this location of the drive.',
+			'Looks like Etcher-ng is not able to write to this location of the drive.',
 			'This error is usually caused by a faulty drive, reader, or port.',
 			'\n\nPlease try again with another drive, reader, or port.',
 		].join(' ');
@@ -193,7 +193,7 @@ export const error = {
 	childWriterDied: () => {
 		return [
 			'The writer process ended unexpectedly.',
-			'Please try again, and contact the Etcher team if the problem persists.',
+			'Please try again, and contact the Etcher-ng team if the problem persists.',
 		].join(' ');
 	},
 

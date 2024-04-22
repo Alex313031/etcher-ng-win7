@@ -170,6 +170,7 @@ async function writeAndValidate({
 interface WriteOptions {
 	image: SourceMetadata;
 	destinations: DrivelistDrive[];
+	verify: boolean;
 	autoBlockmapping: boolean;
 	decompressFirst: boolean;
 	SourceType: string;
@@ -260,6 +261,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		const imagePath = options.image.path;
 		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
+		log(`Auto Verification: ${options.verify}`);
 		log(`Auto blockmapping: ${options.autoBlockmapping}`);
 		log(`Decompress first: ${options.decompressFirst}`);
 		const dests = options.destinations.map((destination) => {
@@ -305,7 +307,7 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 			const results = await writeAndValidate({
 				source,
 				destinations: dests,
-				verify: true,
+				verify: options.verify,
 				autoBlockmapping: options.autoBlockmapping,
 				decompressFirst: options.decompressFirst,
 				onProgress,

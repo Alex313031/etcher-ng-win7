@@ -35,7 +35,7 @@ describe('Shared: permissions', function () {
 			it('should escape environment variables and arguments', function () {
 				expect(
 					permissions.createLaunchScript(
-						'C:\\Users\\Alice & Bob\'s Laptop\\"what"\\balenaEtcher',
+						'C:\\Users\\Alice & Bob\'s Laptop\\"what"\\Etcher-ng',
 						['"a Laser"', 'arg1', "'&/ ^ \\", '" $ % *'],
 						{
 							key: 'value',
@@ -48,7 +48,7 @@ describe('Shared: permissions', function () {
 						`set "key=value"${os.EOL}` +
 						`set "key2= " ' ^ & = + $ % / \\"${os.EOL}` +
 						`set "key3=8"${os.EOL}` +
-						`"C:\\Users\\Alice & Bob's Laptop\\\\"what\\"\\balenaEtcher" "\\"a Laser\\"" "arg1" "'&/ ^ \\" "\\" $ % *"`,
+						`"C:\\Users\\Alice & Bob's Laptop\\\\"what\\"\\Etcher-ng" "\\"a Laser\\"" "arg1" "'&/ ^ \\" "\\" $ % *"`,
 				);
 			});
 		});
@@ -67,7 +67,7 @@ describe('Shared: permissions', function () {
 				it('should escape environment variables and arguments', function () {
 					expect(
 						permissions.createLaunchScript(
-							'/home/Alice & Bob\'s Laptop/"what"/balenaEtcher',
+							'/home/Alice & Bob\'s Laptop/"what"/Etcher-ng',
 							['arg1', "'&/ ^ \\", '" $ % *'],
 							{
 								key: 'value',
@@ -79,7 +79,7 @@ describe('Shared: permissions', function () {
 						`export key='value'${os.EOL}` +
 							`export key2=' " '\\'' ^ & = + $ % / \\'${os.EOL}` +
 							`export key3='8'${os.EOL}` +
-							`'/home/Alice & Bob'\\''s Laptop/"what"/balenaEtcher' 'arg1' ''\\''&/ ^ \\' '" $ % *'`,
+							`'/home/Alice & Bob'\\''s Laptop/"what"/Etcher-ng' 'arg1' ''\\''&/ ^ \\' '" $ % *'`,
 					);
 				});
 			});

@@ -16,6 +16,7 @@
 
 import * as _ from 'lodash';
 import * as resinCorvus from 'resin-corvus/browser';
+import * as electronLog from 'electron-log';
 
 import * as packageJSON from '../../../../package.json';
 import { getConfig } from '../../../shared/utils';
@@ -39,35 +40,20 @@ async function installCorvus(): Promise<void> {
 		options: {
 			release: packageJSON.version,
 			shouldReport: () => {
-				return settings.getSync('errorReporting');
+				return false;
 			},
 			mixpanelDeferred: true,
 		},
 	});
 }
 
-let mixpanelSample = DEFAULT_PROBABILITY;
+const mixpanelSample = DEFAULT_PROBABILITY;
 
 /**
  * @summary Init analytics configurations
  */
 async function initConfig() {
-	await installCorvus();
-	let validatedConfig = null;
-	try {
-		const configUrl = await settings.get('configUrl');
-		const config = await getConfig(configUrl);
-		const mixpanel = _.get(config, ['analytics', 'mixpanel'], {});
-		mixpanelSample = mixpanel.probability || DEFAULT_PROBABILITY;
-		if (isClientEligible(mixpanelSample)) {
-			validatedConfig = validateMixpanelConfig(mixpanel);
-		}
-	} catch (err) {
-		resinCorvus.logException(err);
-	}
-	resinCorvus.setConfigs({
-		mixpanel: validatedConfig,
-	});
+	electronLog.info('Analytics are disabled for this build.');
 }
 
 initConfig();

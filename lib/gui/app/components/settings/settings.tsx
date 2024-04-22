@@ -33,16 +33,10 @@ interface Setting {
 async function getSettingsList(): Promise<Setting[]> {
 	const list: Setting[] = [
 		{
-			name: 'errorReporting',
-			label: 'Anonymously report errors and usage statistics to balena.io',
+			name: 'verify',
+			label: 'Auto Verify after flashing',
 		},
 	];
-	if (['appimage', 'nsis', 'dmg'].includes(packageType)) {
-		list.push({
-			name: 'updatesEnabled',
-			label: 'Auto-updates enabled',
-		});
-	}
 	return list;
 }
 
@@ -121,6 +115,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					mt={18}
 					alignItems="center"
 					color="#00aeef"
+					title="View Changelog"
 					style={{
 						width: 'fit-content',
 						cursor: 'pointer',
@@ -128,7 +123,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 					}}
 					onClick={() =>
 						openExternal(
-							'https://github.com/balena-io/etcher/blob/master/CHANGELOG.md',
+							'https://github.com/Alex313031/etcher-ng-win7/blob/main/CHANGELOG.md',
 						)
 					}
 				>

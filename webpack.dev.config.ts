@@ -2,11 +2,8 @@ import configs from './webpack.config';
 import { WebpackOptionsNormalized } from 'webpack';
 import * as fs from 'fs';
 
-const [
-	guiConfig,
-	etcherConfig,
-	childWriterConfig,
-] = (configs as unknown) as WebpackOptionsNormalized[];
+const [guiConfig, etcherConfig, childWriterConfig] =
+	configs as unknown as WebpackOptionsNormalized[];
 
 configs.forEach((config) => {
 	config.mode = 'development';
@@ -20,5 +17,6 @@ guiConfig.devServer = {
 };
 
 fs.copyFileSync('./lib/gui/app/index.dev.html', './generated/index.html');
+fs.copyFileSync('./lib/gui/app/index.css', './generated/index.css');
 
 export default [guiConfig, etcherConfig, childWriterConfig];

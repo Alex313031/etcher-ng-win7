@@ -16,6 +16,9 @@
 
 import * as electron from 'electron';
 import { autoUpdater } from 'electron-updater';
+import * as electronLog from 'electron-log';
+import * as Store from 'electron-store';
+import * as contextMenu from 'electron-context-menu';
 import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as path from 'path';
@@ -31,29 +34,18 @@ import { buildWindowMenu } from './menu';
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
-const packageUpdatable = updatablePackageTypes.includes(packageType);
-let packageUpdated = false;
+const packageUpdatable = false;
+const packageUpdated = false;
+
+// Restrict main.log size to 100Kb
+electronLog.transports.file.maxSize = 1024 * 100;
+
+const store = new Store();
+
+const isWin = process.platform === 'win32';
 
 async function checkForUpdates(interval: number) {
-	// We use a while loop instead of a setInterval to preserve
-	// async execution time between each function call
-	while (!packageUpdated) {
-		if (await settings.get('updatesEnabled')) {
-			try {
-				const release = await autoUpdater.checkForUpdates();
-				const isOutdated =
-					semver.compare(release.updateInfo.version, version) > 0;
-				const shouldUpdate = release.updateInfo.stagingPercentage !== 0; // undefinded (default) means 100%
-				if (shouldUpdate && isOutdated) {
-					await autoUpdater.downloadUpdate();
-					packageUpdated = true;
-				}
-			} catch (err) {
-				logException(err);
-			}
-		}
-		await delay(interval);
-	}
+	electronLog.info('Auto-Updates Disabled for this build');
 }
 
 async function isFile(filePath: string): Promise<boolean> {
@@ -106,7 +98,7 @@ async function selectImageURL(url?: string) {
 	}
 }
 
-// This will catch clicks on links such as <a href="etcher://...">Open in Etcher</a>
+// This will catch clicks on links such as <a href="etcher://...">Open in Etcher-ng</a>
 // We need to listen to the event before everything else otherwise the event won't be fired
 electron.app.on('open-url', async (event, data) => {
 	event.preventDefault();
@@ -125,6 +117,9 @@ async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
 	const defaultWidth = settings.DEFAULT_WIDTH;
 	const defaultHeight = settings.DEFAULT_HEIGHT;
+	const iconPath = isWin
+		? path.join(__dirname, 'media', 'icon.ico')
+		: path.join(__dirname, 'media', 'icon64.png');
 	let width = defaultWidth;
 	let height = defaultHeight;
 	if (fullscreen) {
@@ -133,22 +128,28 @@ async function createMainWindow() {
 	const mainWindow = new electron.BrowserWindow({
 		width,
 		height,
+		minWidth: 632,
+		minHeight: 400,
 		frame: !fullscreen,
 		useContentSize: true,
 		show: false,
-		resizable: false,
-		maximizable: false,
+		resizable: true,
+		maximizable: true,
 		fullscreen,
 		fullscreenable: fullscreen,
 		kiosk: fullscreen,
-		autoHideMenuBar: true,
+		autoHideMenuBar: false,
 		titleBarStyle: 'hiddenInset',
-		icon: path.join(__dirname, 'media', 'icon.png'),
+		icon: iconPath,
 		darkTheme: true,
 		webPreferences: {
 			backgroundThrottling: false,
 			nodeIntegration: true,
+			nodeIntegrationInWorker: true,
+			sandbox: false,
 			contextIsolation: false,
+			devTools: true,
+			experimentalFeatures: true,
 			webviewTag: true,
 			zoomFactor: width / defaultWidth,
 			enableRemoteModule: true,
@@ -209,6 +210,31 @@ async function createMainWindow() {
 			}
 		}
 	});
+
+	mainWindow.on('close', () => {
+		if (mainWindow) {
+			store.set('windowDetails', {
+				position: mainWindow.getPosition(),
+			});
+			electronLog.info('Saved windowDetails.');
+		} else {
+			electronLog.error(
+				'Error: mainWindow was not defined while trying to save windowDetails.',
+			);
+		}
+	});
+
+	const windowDetails = store.get('windowDetails');
+
+	if (windowDetails) {
+		mainWindow.setPosition(
+			windowDetails.position[0],
+			windowDetails.position[1],
+		);
+	} else {
+		electronLog.info('No windowDetails.');
+	}
+
 	return mainWindow;
 }
 
@@ -222,8 +248,141 @@ electron.app.on('window-all-closed', electron.app.quit);
 // make use of it to ensure the browser window is completely destroyed.
 // See https://github.com/electron/electron/issues/5273
 electron.app.on('before-quit', () => {
+	if (mainWindow) {
+		store.set('windowDetails', {
+			position: mainWindow.getPosition(),
+		});
+		electronLog.info('Saved windowDetails.');
+	} else {
+		electronLog.error(
+			'Error: mainWindow was not defined while trying to save windowDetails.',
+		);
+	}
 	electron.app.releaseSingleInstanceLock();
 	process.exit(EXIT_CODES.SUCCESS);
+});
+
+electron.app.on('relaunch', () => {
+	electronLog.warn('Restarting App...');
+	if (mainWindow) {
+		store.set('windowDetails', {
+			position: mainWindow.getPosition(),
+		});
+		electronLog.info('Saved windowDetails.');
+	} else {
+		electronLog.error(
+			'Error: mainWindow was not defined while trying to save windowDetails.',
+		);
+	}
+});
+
+contextMenu({
+	// Chromium context menu defaults
+	showSelectAll: true,
+	showCopyImage: true,
+	showCopyImageAddress: true,
+	showSaveImageAs: true,
+	showCopyVideoAddress: true,
+	showSaveVideoAs: true,
+	showCopyLink: true,
+	showSaveLinkAs: true,
+	showInspectElement: true,
+	showLookUpSelection: true,
+	showSearchWithGoogle: false,
+	prepend: (defaultActions, parameters) => [
+		{
+			label: 'Open Link in New Window',
+			// Only show it when right-clicking a link
+			visible: parameters.linkURL.trim().length > 0,
+			click: () => {
+				const toURL = parameters.linkURL;
+				const linkWin = new electron.BrowserWindow({
+					title: 'New Window',
+					width: 1024,
+					height: 700,
+					useContentSize: true,
+					darkTheme: true,
+					webPreferences: {
+						nodeIntegration: false,
+						nodeIntegrationInWorker: false,
+						experimentalFeatures: true,
+						devTools: true,
+					},
+				});
+				linkWin.loadURL(toURL);
+				electronLog.info('Opened Link in New Window');
+			},
+		},
+		{
+			label: 'Search with Google',
+			// Only show it when right-clicking text
+			visible: parameters.selectionText.trim().length > 0,
+			click: () => {
+				const queryURL = `${encodeURIComponent(parameters.selectionText)}`;
+				const searchURL = `https://google.com/search?q=${encodeURIComponent(
+					parameters.selectionText,
+				)}`;
+				const searchWin = new electron.BrowserWindow({
+					width: 1024,
+					height: 700,
+					useContentSize: true,
+					darkTheme: true,
+					webPreferences: {
+						nodeIntegration: false,
+						nodeIntegrationInWorker: false,
+						experimentalFeatures: true,
+						devTools: true,
+					},
+				});
+				searchWin.loadURL(searchURL);
+				electronLog.info('Searched for "' + queryURL + '" on Google');
+			},
+		},
+		{
+			label: 'Open Image in New Window',
+			// Only show it when right-clicking an image
+			visible: parameters.mediaType === 'image',
+			click: () => {
+				const imgURL = parameters.srcURL;
+				const imgTitle = imgURL.substring(imgURL.lastIndexOf('/') + 1);
+				const imgWin = new electron.BrowserWindow({
+					title: imgTitle,
+					useContentSize: true,
+					darkTheme: true,
+					webPreferences: {
+						nodeIntegration: false,
+						nodeIntegrationInWorker: false,
+						experimentalFeatures: true,
+						devTools: true,
+					},
+				});
+				imgWin.loadURL(imgURL);
+				electronLog.info('Opened Image in New Window');
+			},
+		},
+		{
+			label: 'Open Video in New Window',
+			// Only show it when right-clicking a video
+			visible: parameters.mediaType === 'video',
+			click: () => {
+				const vidURL = parameters.srcURL;
+				const vidTitle = vidURL.substring(vidURL.lastIndexOf('/') + 1);
+				const vidWin = new electron.BrowserWindow({
+					title: vidTitle,
+					useContentSize: true,
+					darkTheme: true,
+					webPreferences: {
+						nodeIntegration: false,
+						nodeIntegrationInWorker: false,
+						experimentalFeatures: true,
+						devTools: true,
+					},
+				});
+				vidWin.loadURL(vidURL);
+				electronLog.info('Popped out Video');
+			},
+		},
+	],
 });
 
 async function main(): Promise<void> {

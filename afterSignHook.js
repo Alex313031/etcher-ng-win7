@@ -10,13 +10,14 @@ async function main(context) {
   }
 
   const appName = context.packager.appInfo.productFilename
-  const appleId = 'accounts+apple@balena.io'
+  const appleId = process.env.XCODE_APP_LOADER_EMAIL || 'accounts+apple@balena.io'
+  const appleIdPassword = process.env.XCODE_APP_LOADER_PASSWORD
 
   await notarize({
-    appBundleId: 'io.balena.etcher',
+    appBundleId: 'com.alex313031.etcher-ng',
     appPath: `${appOutDir}/${appName}.app`,
     appleId,
-    appleIdPassword: `@keychain:Application Loader: ${appleId}`
+    appleIdPassword
   })
 }
 

@@ -66,8 +66,8 @@ as well.
 ### Cloning the project
 
 ```sh
-git clone --recursive https://github.com/balena-io/etcher
-cd etcher
+git clone --recursive https://github.com/Alex313031/etcher-ng-win7.git
+cd etcher-ng-win7
 ```
 
 ### Installing npm dependencies
@@ -85,13 +85,16 @@ VS2015_**, to ensure all Visual Studio command utilities are available in the
 make electron-develop
 ```
 
-### Running the application
+### Building and Running the application
 
 #### GUI
 
 ```sh
+# Install dependencies
+npm install
 # Build the GUI
-npm run webpack
+npm run webpack #or npm run build
+npm run build #or npm run webpack
 # Start Electron
 npm start
 ```

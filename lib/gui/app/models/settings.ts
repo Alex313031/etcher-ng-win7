@@ -20,8 +20,6 @@ import * as _ from 'lodash';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 
-import * as packageJSON from '../../../../package.json';
-
 const debug = _debug('etcher:models:settings');
 
 const JSON_INDENT = 2;
@@ -76,9 +74,10 @@ export async function writeConfigFile(
 }
 
 const DEFAULT_SETTINGS: _.Dictionary<any> = {
-	errorReporting: true,
-	updatesEnabled: ['appimage', 'nsis', 'dmg'].includes(packageJSON.packageType),
+	errorReporting: false,
+	updatesEnabled: false,
 	desktopNotifications: true,
+	verify: false,
 	autoBlockmapping: true,
 	decompressFirst: true,
 };

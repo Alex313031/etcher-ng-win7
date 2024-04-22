@@ -64,6 +64,7 @@ store.dispatch({
 
 const applicationSessionUuid = store.getState().toJS().applicationSessionUuid;
 const flashingWorkflowUuid = store.getState().toJS().flashingWorkflowUuid;
+const electronVersion = process.versions.electron;
 
 console.log(outdent`
 	${outdent}
@@ -73,11 +74,13 @@ console.log(outdent`
 	|  __|| __/ __| '_ \\ / _ \\ '__|
 	| |___| || (__| | | |  __/ |
 	\\____/ \\__\\___|_| |_|\\___|_|
-
-	Interested in joining the Etcher team?
-	Drop us a line at join+etcher@balena.io
-
-	Version = ${packageJSON.version}, Type = ${packageJSON.packageType}
+	
+	
+	App Version = ${packageJSON.version}, Type = ${packageJSON.packageType}
+	
+	Electron Version = ${electronVersion}
+	
+	
 `);
 
 const currentVersion = packageJSON.version;
@@ -315,7 +318,7 @@ window.addEventListener('beforeunload', async (event) => {
 		const confirmed = await osDialog.showWarning({
 			confirmationLabel: 'Yes, quit',
 			rejectionLabel: 'Cancel',
-			title: 'Are you sure you want to close Etcher?',
+			title: 'Are you sure you want to close Etcher-ng?',
 			description: messages.warning.exitWhileFlashing(),
 		});
 		if (confirmed) {

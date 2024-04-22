@@ -295,7 +295,16 @@ const commonConfig = {
 		],
 	},
 	resolve: {
-		extensions: ['.node', '.js', '.json', '.ts', '.tsx'],
+		extensions: [
+			'.node',
+			'.js',
+			'.json',
+			'.ts',
+			'.jsx',
+			'.tsx',
+			'.css',
+			'.html',
+		],
 	},
 	plugins: [
 		PnpWebpackPlugin,
@@ -323,6 +332,8 @@ const commonConfig = {
 		platformSpecificModule('win32', 'winusb-driver-generator'),
 		// Not needed but required by resin-corvus > os-locale > execa > cross-spawn
 		platformSpecificModule('none', 'spawn-sync'),
+		// debug addon fix
+		platformSpecificModule('none', 'xxhash-addon'),
 		// Not needed as we replace all requires for it
 		platformSpecificModule('none', 'node-pre-gyp', '{ find: () => {} }'),
 		// Not needed as we replace all requires for it
@@ -369,9 +380,12 @@ const guiConfig = {
 		new CopyPlugin({
 			patterns: [
 				{ from: 'lib/gui/app/index.html', to: 'index.html' },
+				{ from: 'lib/gui/app/index.css', to: 'index.css' },
 				// electron-builder doesn't bundle folders named "assets"
 				// See https://github.com/electron-userland/electron-builder/issues/4545
-				{ from: 'assets/icon.png', to: 'media/icon.png' },
+				{ from: 'lib/gui/assets/icon64.png', to: 'media/icon64.png' },
+				{ from: 'lib/gui/assets/icon48.png', to: 'media/icon48.png' },
+				{ from: 'lib/gui/assets/icon.ico', to: 'media/icon.ico' },
 			],
 		}),
 		// Remove "Download the React DevTools for a better development experience" message

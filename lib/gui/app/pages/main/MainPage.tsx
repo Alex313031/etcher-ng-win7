@@ -148,7 +148,7 @@ export class MainPage extends React.Component<
 	private async getFeaturedProjectURL() {
 		const url = new URL(
 			(await settings.get('featuredProjectEndpoint')) ||
-				'https://assets.balena.io/etcher-featured/index.html',
+				'https://thorium.rocks/etcher-ng',
 		);
 		url.searchParams.append('borderRight', 'false');
 		url.searchParams.append('darkBackground', 'true');
@@ -282,15 +282,24 @@ export class MainPage extends React.Component<
 					}}
 				>
 					<Flex width="100%" />
-					<Flex width="100%" alignItems="center" justifyContent="center">
+					<Flex
+						width="100%"
+						alignItems="center"
+						justifyContent="center"
+						title="Etcher-ng Website"
+					>
 						<EtcherSvg
 							width="123px"
 							height="22px"
 							style={{
 								cursor: 'pointer',
+								// Make touch events click instead of dragging
+								WebkitAppRegion: 'no-drag',
 							}}
 							onClick={() =>
-								openExternal('https://www.balena.io/etcher?ref=etcher_footer')
+								openExternal(
+									'https://github.com/Alex313031/etcher-ng-win7#readme',
+								)
 							}
 							tabIndex={100}
 						/>
@@ -301,6 +310,7 @@ export class MainPage extends React.Component<
 							icon={<CogSvg height="1em" fill="currentColor" />}
 							plain
 							tabIndex={5}
+							title="Settings"
 							onClick={() => this.setState({ hideSettings: false })}
 							style={{
 								// Make touch events click instead of dragging
@@ -310,10 +320,11 @@ export class MainPage extends React.Component<
 						{!settings.getSync('disableExternalLinks') && (
 							<Icon
 								icon={<QuestionCircleSvg height="1em" fill="currentColor" />}
+								title="Help"
 								onClick={() =>
 									openExternal(
 										selectionState.getImage()?.supportUrl ||
-											'https://github.com/balena-io/etcher/blob/master/SUPPORT.md',
+											'https://github.com/Alex313031/etcher-ng-win7/blob/main/SUPPORT.md',
 									)
 								}
 								tabIndex={6}

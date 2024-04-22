@@ -1,0 +1,149 @@
+{
+  "electronVersion": "13.6.9",
+  "asar": false,
+  "npmRebuild": true,
+  "nodeGypRebuild": false,
+  "afterPack": "./afterPack.js",
+  "afterSign": "./afterSignHook.js",
+  "productName": "Etcher-ng",
+  "appId": "com.alex313031.etcher-ng",
+  "copyright": "Copyright © 2024 Alex313031",
+  "generateUpdatesFilesForAllChannels": false,
+  "directories": {
+    "app": ".",
+    "buildResources": "./assets",
+    "output": "dist"
+  },
+  "files": [
+    "./generated",
+    "./lib/shared/catalina-sudo/sudo-askpass.osascript.js"
+  ],
+  "linux": {
+    "target": [
+      "zip",
+      "deb",
+      "rpm",
+      "appimage"
+    ],
+    "icon": "./assets/iconset",
+    "maintainer": "Alex313031",
+    "vendor": "Alex313031",
+    "synopsis": "Etcher-ng is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.",
+    "category": "Utility;",
+    "executableName": "etcher-ng",
+    "artifactName": "etcher-ng_${version}_${arch}.${ext}",
+    "desktop": {
+      "Name": "Etcher-ng",
+      "StartupWMClass": "etcher-ng",
+      "Keywords": "etcher;flash;utils;",
+      "Icon": "etcher-ng"
+    }
+  },
+  "deb": {
+    "priority": "optional",
+    "compression": "bzip2",
+    "afterInstall": "./after-install.tpl",
+    "depends": [
+      "gconf-service",
+      "gconf2",
+      "libasound2",
+      "libatk1.0-0",
+      "libc6",
+      "libcairo2",
+      "libcups2",
+      "libdbus-1-3",
+      "libexpat1",
+      "libfontconfig1",
+      "libfreetype6",
+      "libgbm1",
+      "libgcc1",
+      "libgconf-2-4",
+      "libgdk-pixbuf2.0-0",
+      "libglib2.0-0",
+      "libgtk-3-0",
+      "libkrb5-3",
+      "liblzma5",
+      "libnotify4",
+      "libnspr4",
+      "libnss3",
+      "libpango1.0-0 | libpango-1.0-0",
+      "libstdc++6",
+      "libx11-6",
+      "libxcomposite1",
+      "libxcursor1",
+      "libxdamage1",
+      "libxext6",
+      "libxfixes3",
+      "libxi6",
+      "libxrandr2",
+      "libxrender1",
+      "libxss1",
+      "libxtst6",
+      "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
+    ]
+  },
+  "appImage": {
+    "category": "Utility;"
+  },
+  "rpm": {
+    "afterInstall": "./after-install.tpl",
+    "depends": [ "util-linux" ]
+  },
+  "win": {
+    "icon": "./assets/icon.ico",
+    "target": [
+      "zip",
+      "portable",
+      "nsis"
+    ],
+    "publisherName": "Alex313031",
+    "executableName": "etcher_ng",
+    "artifactName": "etcher-ng_win64_${version}_${arch}.${ext}"
+  },
+  "nsis": {
+    "shortcutName": "Etcher-ng",
+    "artifactName": "etcher-ng_setup_${version}_${arch}.${ext}",
+    "uninstallDisplayName": "Etcher-ng ${version}",
+    "deleteAppDataOnUninstall": true,
+    "oneClick": true,
+    "license": "LICENSE.md"
+  },
+  "portable": {
+    "artifactName": "etcher-ng_portable_win64_${version}_${arch}.${ext}"
+  },
+  "mac": {
+    "category": "public.app-category.developer-tools",
+    "entitlements": "assets/entitlements.mac.plist",
+    "entitlementsInherit": "assets/entitlements.mac.plist",
+    "icon": "./assets/icon.icns",
+    "darkModeSupport": true,
+    "minimumSystemVersion": "10.12",
+    "artifactName": "etcher-ng_${version}_macos_${arch}.${ext}",
+    "target": [
+      "dmg",
+      "zip"
+    ]
+  },
+  "dmg": {
+    "background": "./assets/dmg/background.tiff",
+    "icon": "./assets/icon.icns",
+    "iconSize": "110",
+    "window": {
+      "width": 540,
+      "height": 405
+    },
+    "contents": [
+      { "x": 140, "y": 225 },
+      {
+        "x": 415, "y": 225,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ],
+    "artifactName": "etcher-ng_${version}_macos_${arch}.${ext}",
+  },
+  "protocols": {
+    "name": "etcher",
+    "schemes": [ "etcher" ]
+  }
+}

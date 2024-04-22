@@ -28,7 +28,7 @@ import * as analytics from '../../modules/analytics';
 const ELECTRON_SESSION = 'persist:success-banner';
 
 /**
- * @summary Etcher version search-parameter key
+ * @summary Etcher-ng version search-parameter key
  */
 const ETCHER_VERSION_PARAM = 'etcher-version';
 

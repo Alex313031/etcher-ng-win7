@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 balena.io
+ * Copyright 2023 balena.io and Alex313031
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,28 +14,16 @@
  * limitations under the License.
  */
 
-import { basename } from 'path';
+import * as electron from 'electron';
+import { logEvent } from '../../../modules/analytics';
 
-export const SUPPORTED_EXTENSIONS = [
-	'bin',
-	'bz2',
-	'dmg',
-	'dsk',
-	'etch',
-	'gz',
-	'hddimg',
-	'img',
-	'iso',
-	'raw',
-	'rpi-sdimg',
-	'sdcard',
-	'vhd',
-	'wic',
-	'xz',
-	'zip',
-];
+/**
+ * @summary Open an external resource in a new BrowserWindow
+ */
+export async function open(url: string) {
+	logEvent('Open internal link', { url });
 
-export function looksLikeWindowsImage(imagePath: string): boolean {
-	const regex = /windows|win7|win8|win10|winxp|winvista/i;
-	return regex.test(basename(imagePath));
+	if (url) {
+		new electron.BrowserWindow({ width: 900, height: 700 }).loadURL(url);
+	}
 }

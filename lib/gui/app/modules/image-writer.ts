@@ -34,7 +34,7 @@ import * as windowProgress from '../os/window-progress';
 
 const THREADS_PER_CPU = 16;
 
-// There might be multiple Etcher instances running at
+// There might be multiple Etcher-ng instances running at
 // the same time, therefore we must ensure each IPC
 // server/client has a different name.
 const IPC_SERVER_ID = `etcher-server-${process.pid}`;
@@ -96,7 +96,7 @@ function writerArgv(): string[] {
 	let entryPoint = path.join(getAppPath(), 'generated', 'child-writer.js');
 	// AppImages run over FUSE, so the files inside the mount point
 	// can only be accessed by the user that mounted the AppImage.
-	// This means we can't re-spawn Etcher as root from the same
+	// This means we can't re-spawn Etcher-ng as root from the same
 	// mount-point, and as a workaround, we re-mount the original
 	// AppImage as root.
 	if (os.platform() === 'linux' && process.env.APPIMAGE && process.env.APPDIR) {
@@ -147,7 +147,7 @@ async function performWrite(
 	let cancelled = false;
 	let skip = false;
 	ipc.serve();
-	const { autoBlockmapping, decompressFirst } = await settings.getAll();
+	const { verify, autoBlockmapping, decompressFirst } = await settings.getAll();
 	return await new Promise((resolve, reject) => {
 		ipc.server.on('error', (error) => {
 			terminateServer();
@@ -201,6 +201,7 @@ async function performWrite(
 				image,
 				destinations: drives,
 				SourceType: image.SourceType.name,
+				verify,
 				autoBlockmapping,
 				decompressFirst,
 			});
@@ -241,7 +242,7 @@ async function performWrite(
 					errors.createUserError({
 						title: 'The writer process ended unexpectedly',
 						description:
-							'Please try again, and contact the Etcher team if the problem persists',
+							'Please try again, and contact the Etcher-ng team if the problem persists',
 					}),
 				);
 				return;

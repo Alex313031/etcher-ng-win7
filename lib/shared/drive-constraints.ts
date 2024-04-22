@@ -54,7 +54,7 @@ function sourceIsInsideDrive(source: string, drive: DrivelistDrive) {
  * @summary Check if a drive is source drive
  *
  * @description
- * In the context of Etcher, a source drive is a drive
+ * In the context of Etcher-ng, a source drive is a drive
  * containing the image.
  */
 export function isSourceDrive(

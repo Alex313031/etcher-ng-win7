@@ -546,7 +546,7 @@ export class DriveSelector extends React.Component<
 						}}
 						children={
 							missingDriversModal.drive.linkMessage ||
-							`Etcher will open ${missingDriversModal.drive.link} in your browser`
+							`Etcher-ng will open ${missingDriversModal.drive.link} in your browser`
 						}
 					/>
 				)}

@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Link to the binary
-# Must hardcode balenaEtcher directory; no variable available
-ln -sf '/opt/balenaEtcher/${executable}' '/usr/bin/${executable}'
+# Must hardcode Etcher directory; no variable available
+ln -sf '/opt/Etcher-ng/${executable}' '/usr/bin/${executable}'
 
 # SUID chrome-sandbox for Electron 5+
-chmod 4755 '/opt/balenaEtcher/chrome-sandbox' || true
+chmod 4755 '/opt/Etcher-ng/chrome-sandbox' || true
 
 update-mime-database /usr/share/mime || true
 update-desktop-database /usr/share/applications || true
