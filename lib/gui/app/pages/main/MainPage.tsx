@@ -148,7 +148,7 @@ export class MainPage extends React.Component<
 	private async getFeaturedProjectURL() {
 		const url = new URL(
 			(await settings.get('featuredProjectEndpoint')) ||
-				'https://thorium.rocks/etcher-ng',
+				'https://thorium.rocks/etcher-ng/win7.html',
 		);
 		url.searchParams.append('borderRight', 'false');
 		url.searchParams.append('darkBackground', 'true');

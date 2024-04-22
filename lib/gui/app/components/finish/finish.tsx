@@ -43,7 +43,7 @@ function restart(goToMain: () => void) {
 async function getSuccessBannerURL() {
 	return (
 		(await settings.get('successBannerURL')) ??
-		'https://thorium.rocks/etcher-ng'
+		'https://thorium.rocks/etcher-ng/win7.html'
 	);
 }
 
