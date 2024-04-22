@@ -1,0 +1,4 @@
+[submodule "scripts/resin"]
+	path = scripts/resin
+	url = https://github.com/product-os/scripts
+	branch = master
