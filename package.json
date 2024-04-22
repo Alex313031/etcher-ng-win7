@@ -31,7 +31,7 @@
     "concourse-test": "npx npm@6.14.18 test",
     "concourse-test-electron": "npx npm@6.14.18 test",
     "postinstall": "electron-rebuild -t prod,dev,optional && electron-builder install-app-deps",
-    "start": "electron .",
+    "start": "npm run build && electron .",
     "dev": "webpack --no-optimization-minimize && ELECTRON_ENABLE_LOGGING=1 electron .",
     "build": "webpack",
     "buildDir": "webpack && electron-builder --dir",
