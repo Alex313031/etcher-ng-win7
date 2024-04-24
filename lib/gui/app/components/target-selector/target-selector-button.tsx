@@ -149,6 +149,7 @@ export function TargetSelectorButton(props: TargetSelectorProps) {
 			primary
 			tabIndex={targets.length > 0 ? -1 : 2}
 			disabled={props.disabled}
+			tooltip="Choose target drive(s)"
 			onClick={props.openDriveSelector}
 		>
 			Select target

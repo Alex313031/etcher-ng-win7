@@ -53,7 +53,7 @@ const mixpanelSample = DEFAULT_PROBABILITY;
  * @summary Init analytics configurations
  */
 async function initConfig() {
-	electronLog.info('Analytics are disabled for this build.');
+	return;
 }
 
 initConfig();

@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.7.9.1
+## (2024-04-24)
+
+* patch: Update Electron to 13.6.9 [Alex313031]
+* patch: Update etcher-sdk to 6.4.0 [Alex313031]
+* patch: Update other npm packages [Alex313031]
+* Update UI, logo, and branding to Etcher-ng's ones [Alex313031]
+* Fix: Fix package generation on Linux and Windows [Alex313031]
+* patch: Add compiler optimizations [Alex313031]
+* patch: Use dark theme always for Windows 7/8/8.1 [Alex313031]
+* patch: Use GPU hardware acceleration when available [Alex313031]
+* Fix: Disabled Auto-Update and Analytics (Telemetry) [Alex313031]
+* Fix: Window remembers last size and position [Alex313031]
+* Fix: Window is now resizable and maximizable [Alex313031]
+* Use electron-log for logging to the commandline console [Alex313031]
+* Add "Auto-Verify" option in settings [Alex313031]
+* Add "Auto-Trim" option in settings [Alex313031]
+* Add menubar with many options [Alex313031]
+* Add "About" menu item [Alex313031]
+* Make some links open in a new Electron window rather than an external browser [Alex313031]
+* Add tooltips to all buttons [Alex313031]
+* Add build scripts [Alex313031]
+
 # v1.7.9
 ## (2022-04-22)
 

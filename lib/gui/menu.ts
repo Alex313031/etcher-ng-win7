@@ -93,11 +93,18 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					accelerator: 'CmdorCtrl+Alt+G',
 					click() {
 						electronLog.info('Opening chrome://gpu');
-						openInternal('chrome://gpu');
+						const gpuWindow = new electron.BrowserWindow({
+							width: 900,
+							height: 700,
+							useContentSize: true,
+							title: 'GPU Internals',
+						});
+						gpuWindow.loadURL('chrome://gpu');
 					},
 				},
 				{
 					label: 'Open chrome://process-internals',
+					accelerator: 'CmdorCtrl+Alt+P',
 					click() {
 						electronLog.info('Opening chrome://process-internals');
 						openInternal('chrome://process-internals');
@@ -114,7 +121,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 				{ type: 'separator' },
 				{
 					label: 'Restart App',
-					accelerator: 'CmdorCtrl+Shift+R',
+					accelerator: 'CmdorCtrl+Alt+R',
 					click() {
 						electron.app.relaunch();
 						electron.app.quit();

@@ -17,11 +17,12 @@
 import GithubSvg from '@fortawesome/fontawesome-free/svgs/brands/github.svg';
 import * as _ from 'lodash';
 import * as React from 'react';
-import { Box, Checkbox, Flex, TextWithCopy, Txt } from 'rendition';
+import { Box, Checkbox, Divider, Flex, TextWithCopy, Txt } from 'rendition';
 
 import { version, packageType } from '../../../../../package.json';
 import * as settings from '../../models/settings';
 import * as analytics from '../../modules/analytics';
+import { open as openInternal } from '../../os/open-internal-remote/services/open-internal';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
 
@@ -35,6 +36,7 @@ async function getSettingsList(): Promise<Setting[]> {
 		{
 			name: 'verify',
 			label: 'Auto Verify after flashing',
+			tooltip: 'Verify that the drive was written correctly',
 		},
 	];
 	return list;
@@ -86,7 +88,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 		<Modal
 			titleElement={
 				<Txt fontSize={24} mb={24}>
-					Settings
+					<u>Settings</u>
 				</Txt>
 			}
 			done={() => toggleModal(false)}
@@ -94,11 +96,12 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 			<Flex flexDirection="column">
 				{settingsList.map((setting: Setting, i: number) => {
 					return (
-						<Flex key={setting.name} mb={14}>
+						<Flex key={setting.name} mt={14} mb={14}>
 							<Checkbox
 								toggle
 								tabIndex={6 + i}
 								label={setting.label}
+								tooltip={setting.tooltip}
 								checked={currentSettings[setting.name]}
 								onChange={() => toggleSetting(setting.name)}
 							/>
@@ -111,8 +114,9 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						<InfoBox label="UUID" value={UUID.substr(0, 7)} />
 					</Flex>
 				)}
+				<Divider color="#00aeef" />
 				<Flex
-					mt={18}
+					mt={14}
 					alignItems="center"
 					color="#00aeef"
 					title="View Changelog"
@@ -122,7 +126,7 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						fontSize: 14,
 					}}
 					onClick={() =>
-						openExternal(
+						openInternal(
 							'https://github.com/Alex313031/etcher-ng-win7/blob/main/CHANGELOG.md',
 						)
 					}

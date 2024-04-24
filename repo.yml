@@ -6,11 +6,11 @@ sentry:
     team: resinio
     type: electron
 triggerNotification:
-    version: 1.7.9
+    version: 1.7.9.1
     stagingPercentage: 100
 upstream:
   - repo: etcher-sdk
-    url: https://github.com/balena-io-modules/etcher-sdk
+    url: https://github.com/Alex313031/etcher-sdk-win7
     module: 'etcher-sdk'
   - repo: sys-class-rgb-led
     url: https://github.com/balena-io-modules/sys-class-rgb-led

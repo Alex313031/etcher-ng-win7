@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 balena.io and Alex313031
+ * Copyright 2024 balena.io and Alex313031
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ export async function open(url: string) {
 	logEvent('Open internal link', { url });
 
 	if (url) {
-		new electron.BrowserWindow({
+		new electron.remote.BrowserWindow({
 			width: 900,
 			height: 700,
 			useContentSize: true,

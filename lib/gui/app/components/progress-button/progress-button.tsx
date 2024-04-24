@@ -120,6 +120,7 @@ export class ProgressButton extends React.PureComponent<ProgressButtonProps> {
 			<StepButton
 				primary={!warning}
 				warning={warning}
+				tooltip="Write image to drive!"
 				onClick={this.props.callback}
 				disabled={this.props.disabled}
 				style={{

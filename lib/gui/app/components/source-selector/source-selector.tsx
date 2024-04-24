@@ -732,6 +732,7 @@ export class SourceSelector extends React.Component<
 								disabled={this.state.imageSelectorOpen}
 								primary={this.state.defaultFlowActive}
 								key="Flash from file"
+								tooltip="Flash from disk image file"
 								flow={{
 									onClick: () => this.openImageSelector(),
 									label: 'Flash from file',
@@ -742,6 +743,7 @@ export class SourceSelector extends React.Component<
 							/>
 							<FlowSelector
 								key="Flash from URL"
+								tooltip="Flash from disk image URL"
 								flow={{
 									onClick: () => this.openURLSelector(),
 									label: 'Flash from URL',
@@ -752,6 +754,7 @@ export class SourceSelector extends React.Component<
 							/>
 							<FlowSelector
 								key="Clone drive"
+								tooltip="Clone the contents of one drive to another"
 								flow={{
 									onClick: () => this.openDriveSelector(),
 									label: 'Clone drive',

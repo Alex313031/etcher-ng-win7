@@ -1,6 +1,6 @@
 {
   "electron": {
-    "npm_version": "6.14.5",
+    "npm_version": "6.14.18",
     "dependencies": {
       "linux": [
         "libudev-dev",

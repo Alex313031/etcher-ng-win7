@@ -45,7 +45,7 @@ const store = new Store();
 const isWin = process.platform === 'win32';
 
 async function checkForUpdates(interval: number) {
-	electronLog.info('Auto-Updates Disabled for this build');
+	electronLog.info('Auto-Updates disabled for this build');
 }
 
 async function isFile(filePath: string): Promise<boolean> {
@@ -145,8 +145,6 @@ async function createMainWindow() {
 		webPreferences: {
 			backgroundThrottling: false,
 			nodeIntegration: true,
-			nodeIntegrationInWorker: true,
-			sandbox: false,
 			contextIsolation: false,
 			devTools: true,
 			experimentalFeatures: true,
@@ -159,10 +157,13 @@ async function createMainWindow() {
 	electron.app.setAsDefaultProtocolClient(customProtocol);
 
 	buildWindowMenu(mainWindow);
-	mainWindow.setFullScreen(true);
+
+	electron.nativeTheme.themeSource = 'dark';
+
+	// mainWindow.setFullScreen(true);
 
 	// Prevent flash of white when starting the application
-	mainWindow.on('ready-to-show', () => {
+	mainWindow.once('ready-to-show', () => {
 		console.timeEnd('ready-to-show');
 		// Electron sometimes caches the zoomFactor
 		// making it obnoxious to switch back-and-forth
@@ -390,6 +391,7 @@ async function main(): Promise<void> {
 		electron.app.quit();
 	} else {
 		await electron.app.whenReady();
+		electron.app.commandLine.appendSwitch('ignore-gpu-blocklist');
 		const window = await createMainWindow();
 		electron.app.on('second-instance', async (_event, argv) => {
 			if (window.isMinimized()) {

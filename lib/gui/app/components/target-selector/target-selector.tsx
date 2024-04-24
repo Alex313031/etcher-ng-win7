@@ -61,7 +61,8 @@ export const TargetSelectorModal = (
 	<DriveSelector
 		multipleSelection={true}
 		titleLabel="Select target"
-		emptyListLabel="Plug a target drive"
+		tooltip="Choose target drive(s)"
+		emptyListLabel="Plug in a target drive"
 		emptyListIcon={<TgtSvg width="40px" />}
 		showWarnings={true}
 		selectedList={getSelectedDrives()}
