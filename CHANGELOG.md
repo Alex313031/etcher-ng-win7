@@ -6,7 +6,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 # v1.0.2
 ## (2024-04-24)
 
-* patch: Update Electron to 13.6.9 [Alex313031]
 * patch: Update etcher-sdk to 6.4.1 [Alex313031]
 * patch: Update other npm packages [Alex313031]
 * Add "Decompress First" option in settings [Alex313031]

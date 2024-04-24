@@ -120,6 +120,13 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 				},
 				{ type: 'separator' },
 				{
+					label: 'Edit Config File',
+					click() {
+						electronLog.info('Editing Config File');
+						electron.app.emit('edit-config-file');
+					},
+				},
+				{
 					label: 'Restart App',
 					accelerator: 'CmdorCtrl+Alt+R',
 					click() {
@@ -223,6 +230,8 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
+					label: 'Quit',
+					accelerator: 'CmdOrCtrl+Q',
 					role: 'quit' as const,
 				},
 			],

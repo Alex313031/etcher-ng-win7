@@ -120,6 +120,7 @@ function fetchWasm(...where: string[]) {
 			// This doesn't exist in the child-writer
 			electron = require('electron');
 		} catch {
+			console.log('Unable to require electron.remote');
 		}
 		function appPath() {
 			return Path.isAbsolute(__dirname) ?

@@ -41,9 +41,9 @@ export const DEFAULT_HEIGHT = 480;
  */
 const app = electron.app || electron.remote.app;
 
-const USER_DATA_DIR = app.getPath('userData');
+export const USER_DATA_DIR = app.getPath('userData');
 
-const CONFIG_PATH = join(USER_DATA_DIR, 'config.json');
+export const CONFIG_PATH = join(USER_DATA_DIR, 'config.json');
 
 async function readConfigFile(filename: string): Promise<_.Dictionary<any>> {
 	let contents = '{}';

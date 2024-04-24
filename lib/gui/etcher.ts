@@ -30,19 +30,24 @@ import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
 import { logException } from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
+import CONFIG_PATH from './app/models/settings';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
 const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
 const packageUpdatable = false;
 const packageUpdated = false;
+let mainWindow;
 
 // Restrict main.log size to 100Kb
 electronLog.transports.file.maxSize = 1024 * 100;
 
 const store = new Store();
 
+// Globally export what OS we are on
+const isLinux = process.platform === 'linux';
 const isWin = process.platform === 'win32';
+const isMac = process.platform === 'darwin';
 
 async function checkForUpdates(interval: number) {
 	electronLog.info('Auto-Updates disabled for this build');
@@ -125,7 +130,7 @@ async function createMainWindow() {
 	if (fullscreen) {
 		({ width, height } = electron.screen.getPrimaryDisplay().bounds);
 	}
-	const mainWindow = new electron.BrowserWindow({
+	mainWindow = new electron.BrowserWindow({
 		width,
 		height,
 		minWidth: 632,
@@ -214,7 +219,35 @@ async function createMainWindow() {
 }
 
 electron.app.allowRendererProcessReuse = false;
-electron.app.on('window-all-closed', electron.app.quit);
+
+electron.app.on('edit-config-file', () => {
+	if (isLinux) {
+		electronLog.info(
+			'Note that JSON must be a recognized file type for the OS to open the config.json file.',
+		);
+		electronLog.warn(
+			'On Linux, a default text editor for handling JSON files must also be present and configured correctly.',
+		);
+		store.openInEditor();
+		return;
+	} else {
+		electronLog.info(
+			'Note that JSON must be a recognized file type \n for the OS to open the config.json file.',
+		);
+		store.openInEditor();
+	}
+});
+
+electron.app.on('window-all-closed', () => {
+	if (!isMac) {
+		electronLog.warn('mainWindow.close()');
+		electron.app.quit();
+	} else {
+		electronLog.info('Not keeping dock alive even though this is MacOS');
+		electronLog.warn('mainWindow.close()');
+		electron.app.quit();
+	}
+});
 
 // Sending a `SIGINT` (e.g: Ctrl-C) to an Electron app that registers
 // a `beforeunload` window event handler results in a disconnected white
