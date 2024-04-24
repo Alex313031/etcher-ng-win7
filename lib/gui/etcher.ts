@@ -186,32 +186,6 @@ async function createMainWindow() {
 		)}`,
 	);
 
-	const page = mainWindow.webContents;
-
-	page.once('did-frame-finish-load', async () => {
-		autoUpdater.on('error', (err) => {
-			logException(err);
-		});
-		if (packageUpdatable) {
-			try {
-				const configUrl = await settings.get('configUrl');
-				const onlineConfig = await getConfig(configUrl);
-				const autoUpdaterConfig: AutoUpdaterConfig = onlineConfig?.autoUpdates
-					?.autoUpdaterConfig ?? {
-					autoDownload: false,
-				};
-				for (const [key, value] of Object.entries(autoUpdaterConfig)) {
-					autoUpdater[key as keyof AutoUpdaterConfig] = value;
-				}
-				const checkForUpdatesTimer =
-					onlineConfig?.autoUpdates?.checkForUpdatesTimer ?? 300000;
-				checkForUpdates(checkForUpdatesTimer);
-			} catch (err) {
-				logException(err);
-			}
-		}
-	});
-
 	mainWindow.on('close', () => {
 		if (mainWindow) {
 			store.set('windowDetails', {
