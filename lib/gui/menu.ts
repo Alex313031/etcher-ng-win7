@@ -186,7 +186,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 		},
 	];
 
-	if (process.platform === 'darwin') {
+	if (isMac) {
 		menuTemplate.unshift({
 			label: appName,
 			submenu: [
@@ -230,7 +230,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					label: 'Quit',
+					label: 'Quit Etcher-ng',
 					accelerator: 'CmdOrCtrl+Q',
 					role: 'quit' as const,
 				},
@@ -261,7 +261,9 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					role: 'quit',
+					label: 'Quit Etcher-ng',
+					accelerator: 'CmdOrCtrl+Q',
+					role: 'quit' as const,
 				},
 			],
 		});
