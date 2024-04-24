@@ -138,7 +138,7 @@ export electron_config_cache="${PWD}/electron" &&
 printf "\n" &&
 printf "${bold}${GRE} Generating installation packages...${c0}\n" &&
 
-npm run dist
+npm run distWin
 }
 case $1 in
 	--dist) packageEtcher; exit 0;;
@@ -169,7 +169,7 @@ export electron_config_cache="${PWD}/electron" &&
 printf "\n" &&
 printf "${bold}${GRE} Generating installation packages (AVX Version)...${c0}\n" &&
 
-npm run dist
+npm run distWin
 }
 case $1 in
 	--dist-avx) packageEtcherAVX; exit 0;;
