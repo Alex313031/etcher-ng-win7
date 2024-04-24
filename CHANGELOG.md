@@ -3,9 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-# v1.7.9.1
+# v1.0.1
 ## (2024-04-24)
 
+* Version number was reverted back to 1.0.x, since this is a fork for old OSes [Alex313031]
 * patch: Update Electron to 13.6.9 [Alex313031]
 * patch: Update etcher-sdk to 6.4.0 [Alex313031]
 * patch: Update other npm packages [Alex313031]
