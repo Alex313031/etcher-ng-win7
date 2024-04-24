@@ -262,8 +262,8 @@ ipc.connectTo(IPC_SERVER_ID, () => {
 		log(`Image: ${imagePath}`);
 		log(`Devices: ${destinations.join(', ')}`);
 		log(`Auto Verification: ${options.verify}`);
-		log(`Auto blockmapping: ${options.autoBlockmapping}`);
-		log(`Decompress first: ${options.decompressFirst}`);
+		log(`Auto Blockmapping: ${options.autoBlockmapping}`);
+		log(`Decompress First: ${options.decompressFirst}`);
 		const dests = options.destinations.map((destination) => {
 			return new BlockDevice({
 				drive: destination,

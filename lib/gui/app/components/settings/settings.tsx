@@ -38,6 +38,14 @@ async function getSettingsList(): Promise<Setting[]> {
 			label: 'Auto Verify after flashing',
 			tooltip: 'Verify that the drive was written correctly',
 		},
+		{
+			name: 'autoBlockmapping',
+			label: 'Trim unallocated space on raw images (in ext-type partitions)',
+		},
+		{
+			name: 'decompressFirst',
+			label: 'Decompress compressed images (i.e. .tar.xz) before flashing',
+		},
 	];
 	return list;
 }

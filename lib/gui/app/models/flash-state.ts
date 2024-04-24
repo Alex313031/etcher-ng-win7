@@ -18,7 +18,6 @@ import * as electron from 'electron';
 import * as sdk from 'etcher-sdk';
 import * as _ from 'lodash';
 import { DrivelistDrive } from '../../../shared/drive-constraints';
-
 import { bytesToMegabytes } from '../../../shared/units';
 import { Actions, store } from './store';
 
@@ -77,7 +76,13 @@ export function unsetFlashingFlag(results: {
 		data: results,
 	});
 	// see https://github.com/balenablocks/balena-electron-env/blob/4fce9c461f294d4a768db8f247eea6f75d7b08b0/README.md#remote-methods
-	electron.ipcRenderer.send('enable-screensaver');
+	try {
+		electron.ipcRenderer.send('enable-screensaver');
+	} catch (error) {
+		console.log(
+			"Can't enable-screensaver, we're probably not running on a balena-electron env",
+		);
+	}
 }
 
 export function setDevicePaths(devicePaths: string[]) {
