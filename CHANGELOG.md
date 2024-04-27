@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 # v1.0.2
 ## (2024-04-24)
 
+* Also support 32 bit Windows and Linux
+* Also support 32 bit Windows and Linux
 * patch: Update etcher-sdk to 6.4.1 [Alex313031]
 * patch: Update other npm packages [Alex313031]
 * Add "Decompress First" option in settings [Alex313031]
