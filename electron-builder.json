@@ -98,7 +98,7 @@
     ],
     "publisherName": "Alex313031",
     "executableName": "etcher_ng",
-    "artifactName": "etcher-ng_win64_${version}_${arch}.${ext}"
+    "artifactName": "etcher-ng_${version}_${arch}.${ext}"
   },
   "nsis": {
     "shortcutName": "Etcher-ng",
@@ -109,7 +109,7 @@
     "license": "LICENSE.md"
   },
   "portable": {
-    "artifactName": "etcher-ng_portable_win64_${version}_${arch}.${ext}"
+    "artifactName": "etcher-ng_portable_${version}_${arch}.${ext}"
   },
   "mac": {
     "category": "public.app-category.developer-tools",
@@ -118,7 +118,7 @@
     "icon": "./assets/icon.icns",
     "darkModeSupport": true,
     "minimumSystemVersion": "10.12",
-    "artifactName": "etcher-ng_${version}_macos_${arch}.${ext}",
+    "artifactName": "etcher-ng_macos_${version}_${arch}.${ext}",
     "target": [
       "dmg",
       "zip"
@@ -140,7 +140,7 @@
         "path": "/Applications"
       }
     ],
-    "artifactName": "etcher-ng_${version}_macos_${arch}.${ext}",
+    "artifactName": "etcher-ng_macos_${version}_${arch}.${ext}",
   },
   "protocols": {
     "name": "etcher",
