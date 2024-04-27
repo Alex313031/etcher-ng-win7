@@ -19,7 +19,6 @@ try() { "$@" || die "${RED}Failed $*"; }
 displayHelp () {
 	printf "\n" &&
 	printf "${bold}${GRE}Script to build Etcher-ng on Windows.${c0}\n" &&
-	printf "${bold}${YEL}Use the --deps flag to install build dependencies.${c0}\n" &&
 	printf "${bold}${YEL}Use the --clean flag to run \`npm run clean\`.${c0}\n" &&
 	printf "${bold}${YEL}Use the --build flag to build Etcher-ng.${c0}\n" &&
 	printf "${bold}${YEL}Use the --build-avx flag to build Etcher-ng (AVX Version).${c0}\n" &&
@@ -30,15 +29,6 @@ displayHelp () {
 }
 case $1 in
 	--help) displayHelp; exit 0;;
-esac
-
-# Install prerequisites
-installDeps () {
-	sudo apt-get install build-essential curl git g++ pkg-config automake make gcc libsecret-1-dev \
-	fakeroot rpm dpkg dpkg-dev libkrb5-dev libx11-dev libxkbfile-dev jq python3 libudev-dev
-}
-case $1 in
-	--deps) installDeps; exit 0;;
 esac
 
 cleanEtcher () {
@@ -177,7 +167,6 @@ esac
 
 printf "\n" &&
 printf "${bold}${GRE}Script to build Etcher-ng on Windows.${c0}\n" &&
-printf "${bold}${YEL}Use the --deps flag to install build dependencies.${c0}\n" &&
 printf "${bold}${YEL}Use the --clean flag to run \`npm run clean\`.${c0}\n" &&
 printf "${bold}${YEL}Use the --build flag to build Etcher-ng.${c0}\n" &&
 printf "${bold}${YEL}Use the --build-avx flag to build Etcher-ng (AVX Version).${c0}\n" &&
