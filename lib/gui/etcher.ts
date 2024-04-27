@@ -15,7 +15,6 @@
  */
 
 import * as electron from 'electron';
-import { autoUpdater } from 'electron-updater';
 import * as electronLog from 'electron-log';
 import * as Store from 'electron-store';
 import * as contextMenu from 'electron-context-menu';
@@ -48,10 +47,6 @@ const store = new Store();
 const isLinux = process.platform === 'linux';
 const isWin = process.platform === 'win32';
 const isMac = process.platform === 'darwin';
-
-async function checkForUpdates(interval: number) {
-	electronLog.info('Auto-Updates disabled for this build');
-}
 
 async function isFile(filePath: string): Promise<boolean> {
 	try {
@@ -109,14 +104,6 @@ electron.app.on('open-url', async (event, data) => {
 	event.preventDefault();
 	await selectImageURL(data);
 });
-
-interface AutoUpdaterConfig {
-	autoDownload?: boolean;
-	autoInstallOnAppQuit?: boolean;
-	allowPrerelease?: boolean;
-	fullChangelog?: boolean;
-	allowDowngrade?: boolean;
-}
 
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
@@ -196,7 +183,7 @@ async function createMainWindow() {
 			store.set('windowDetails', {
 				position: mainWindow.getPosition(),
 			});
-			electronLog.info('Saved windowDetails.');
+			electronLog.info('Saved windowDetails');
 		} else {
 			electronLog.error(
 				'Error: mainWindow was not defined while trying to save windowDetails.',
@@ -212,7 +199,7 @@ async function createMainWindow() {
 			windowDetails.position[1],
 		);
 	} else {
-		electronLog.info('No windowDetails.');
+		electronLog.warn('No windowDetails');
 	}
 
 	return mainWindow;
@@ -260,7 +247,7 @@ electron.app.on('before-quit', () => {
 		store.set('windowDetails', {
 			position: mainWindow.getPosition(),
 		});
-		electronLog.info('Saved windowDetails.');
+		electronLog.info('Saved windowDetails');
 	} else {
 		electronLog.error(
 			'Error: mainWindow was not defined while trying to save windowDetails.',
@@ -276,7 +263,7 @@ electron.app.on('relaunch', () => {
 		store.set('windowDetails', {
 			position: mainWindow.getPosition(),
 		});
-		electronLog.info('Saved windowDetails.');
+		electronLog.info('Saved windowDetails');
 	} else {
 		electronLog.error(
 			'Error: mainWindow was not defined while trying to save windowDetails.',

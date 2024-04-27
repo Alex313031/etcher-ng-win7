@@ -92,7 +92,6 @@
     "electron-notarize": "1.2.2",
     "electron-rebuild": "3.2.9",
     "electron-store": "7.0.3",
-    "electron-updater": "4.6.5",
     "esbuild-loader": "2.16.0",
     "etcher-sdk": "git+https://github.com/Alex313031/etcher-sdk-win7.git#1e9594e92767b6f28480dd99e71d7979fc4651a5",
     "file-loader": "6.2.0",
