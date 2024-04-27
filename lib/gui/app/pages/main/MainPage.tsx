@@ -298,7 +298,7 @@ export class MainPage extends React.Component<
 								WebkitAppRegion: 'no-drag',
 							}}
 							onClick={() =>
-								openExternal(
+								openInternal(
 									'https://github.com/Alex313031/etcher-ng-win7#readme',
 								)
 							}
