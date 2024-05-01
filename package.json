@@ -4,7 +4,7 @@
   "appName": "Etcher-ng",
   "productName": "Etcher-ng",
   "displayName": "Etcher NG",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "packageType": "local",
   "main": "./generated/etcher.js",
   "description": "Flash OS images to SD cards and USB drives, safely and easily. Legacy OS builds.",
@@ -42,7 +42,8 @@
     "distMac": "npm run build && electron-builder -m --x64",
     "clean": "rimraf ./dist && rimraf ./generated && rimraf ./node_modules",
     "distclean": "rimraf ./dist && rimraf ./generated",
-    "burn": "npm run clean && rimraf package-lock.json"
+    "shrink": "npm shrinkwrap",
+    "burn": "rimraf package-lock.json && rimraf npm-shrinkwrap.json && npm run clean"
   },
   "husky": {
     "hooks": {

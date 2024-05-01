@@ -3,11 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.0.3
+## (2024-05-01)
+
+* Better logging, also log inside renderer process to devtools console [Alex313031]
+* Fix "object has been destroyed" error on exit [Alex313031]
+
 # v1.0.2
 ## (2024-04-24)
 
-* Also support 32 bit Windows and Linux
-* Also support 32 bit Windows and Linux
+* Also support 32 bit Windows and Linux [Alex313031]
 * patch: Update etcher-sdk to 6.4.1 [Alex313031]
 * patch: Update other npm packages [Alex313031]
 * Add "Decompress First" option in settings [Alex313031]
