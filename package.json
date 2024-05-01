@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@aws-sdk/client-sso-oidc": "3.565.0",
     "@balena/lint": "5.4.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
     "@fortawesome/fontawesome-free": "5.15.4",
