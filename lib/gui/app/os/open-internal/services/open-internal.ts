@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as electronLog from 'electron-log';
 import { logEvent } from '../../../modules/analytics';
 
 /**
@@ -24,10 +25,15 @@ export async function open(url: string) {
 	logEvent('Open internal link', { url });
 
 	if (url) {
-		new electron.BrowserWindow({
-			width: 900,
-			height: 700,
+		electronLog.info(`Opening internal window to ` + `'` + url + `'`);
+		const newWin = new electron.BrowserWindow({
+			width: 1024,
+			height: 768,
 			useContentSize: true,
-		}).loadURL(url);
+		});
+		newWin.loadURL(url);
+		newWin.on('close', () => {
+			electronLog.info('Closed an internal window');
+		});
 	}
 }

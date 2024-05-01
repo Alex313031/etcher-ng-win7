@@ -34,7 +34,7 @@ import * as flashState from '../../models/flash-state';
 import * as selectionState from '../../models/selection-state';
 import * as settings from '../../models/settings';
 import { observe } from '../../models/store';
-import { open as openInternal } from '../../os/open-internal-remote/services/open-internal';
+import { open as openInternalRemote } from '../../os/open-internal-remote/services/open-internal-remote';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import {
 	IconButton as BaseIcon,
@@ -298,7 +298,7 @@ export class MainPage extends React.Component<
 								WebkitAppRegion: 'no-drag',
 							}}
 							onClick={() =>
-								openInternal(
+								openInternalRemote(
 									'https://github.com/Alex313031/etcher-ng-win7#readme',
 								)
 							}
@@ -323,7 +323,7 @@ export class MainPage extends React.Component<
 								icon={<QuestionCircleSvg height="1em" fill="currentColor" />}
 								title="Help"
 								onClick={() =>
-									openInternal(
+									openInternalRemote(
 										selectionState.getImage()?.supportUrl ||
 											'https://github.com/Alex313031/etcher-ng-win7/blob/main/SUPPORT.md',
 									)
