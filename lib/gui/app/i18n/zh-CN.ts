@@ -157,8 +157,7 @@ const translation = {
 			settings: '软件设置',
 			systemInformation: '系统信息',
 			trimExtPartitions: '修剪原始图像上未分配的空间（在 ext 类型分区中）',
-			decompressFirst:
-				'在刷新之前解压缩压缩图像（即 .tar.xz）',
+			decompressFirst: '在刷新之前解压缩压缩图像（即 .tar.xz）',
 		},
 	},
 };

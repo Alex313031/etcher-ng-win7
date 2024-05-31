@@ -134,8 +134,7 @@ const translation = {
 			settings: '軟體設定',
 			systemInformation: '系統資訊',
 			trimExtPartitions: '修改原始映像檔上未分配的空間（在 ext 類型分割區中）',
-			decompressFirst:
-				'在刷新之前解壓縮壓縮影像（即 .tar.xz）',
+			decompressFirst: '在刷新之前解壓縮壓縮影像（即 .tar.xz）',
 		},
 		menu: {
 			edit: '編輯',
