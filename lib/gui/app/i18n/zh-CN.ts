@@ -10,7 +10,7 @@ const translation = {
 		failed: '失败',
 		completed: '完毕',
 		yesExit: '是的，可以退出',
-		reallyExit: '真的要现在退出 Etcher 吗？',
+		reallyExit: '真的要现在退出 Etcher-ng 吗？',
 		yesContinue: '是的，继续',
 		progress: {
 			starting: '正在启动……',
@@ -39,7 +39,7 @@ const translation = {
 			andFailTarget_other: '并烧录失败了 {{num}} 个目标',
 			succeedTo: '{{name}} 被成功烧录 {{target}}',
 			exitWhileFlashing:
-				'您当前正在刷机。 关闭 Etcher 可能会导致您的磁盘无法使用。',
+				'您当前正在刷机。 关闭 Etcher-ng 可能会导致您的磁盘无法使用。',
 			looksLikeWindowsImage:
 				'看起来您正在尝试刻录 Windows 镜像。\n\n与其他镜像不同，Windows 镜像需要特殊处理才能使其可启动。 我们建议您使用专门为此目的设计的工具，例如 <a href="https://rufus.akeo.ie">Rufus</a> (Windows)、<a href="https://github. com/slacka/WoeUSB">WoeUSB</a> (Linux) 或 Boot Camp 助理 (macOS)。',
 			image: '镜像',
@@ -53,15 +53,15 @@ const translation = {
 			genericFlashError:
 				'出了点问题。如果源镜像曾被压缩过，请检查它是否已损坏。\n{{error}}',
 			validation:
-				'写入已成功完成，但 Etcher 在从磁盘读取镜像时检测到潜在的损坏问题。 \n\n请考虑将镜像写入其他磁盘。',
+				'写入已成功完成，但 Etcher-ng 在从磁盘读取镜像时检测到潜在的损坏问题。 \n\n请考虑将镜像写入其他磁盘。',
 			openError: '打开 {{source}} 时出错。\n\n错误信息： {{error}}',
 			flashError: '烧录 {{image}} {{targets}} 失败。',
 			unplug:
-				'看起来 Etcher 失去了对磁盘的连接。 它是不是被意外拔掉了？\n\n有时这个错误是因为读卡器出了故障。',
+				'看起来 Etcher-ng 失去了对磁盘的连接。 它是不是被意外拔掉了？\n\n有时这个错误是因为读卡器出了故障。',
 			cannotWrite:
-				'看起来 Etcher 无法写入磁盘的这个位置。 此错误通常是由故障的磁盘、读取器或端口引起的。 \n\n请使用其他磁盘、读卡器或端口重试。',
+				'看起来 Etcher-ng 无法写入磁盘的这个位置。 此错误通常是由故障的磁盘、读取器或端口引起的。 \n\n请使用其他磁盘、读卡器或端口重试。',
 			childWriterDied:
-				'写入进程意外崩溃。请再试一次，如果问题仍然存在，请联系 Etcher 团队。',
+				'写入进程意外崩溃。请再试一次，如果问题仍然存在，请联系 Etcher-ng 团队。',
 			badProtocol: '仅支持 http:// 和 https:// 开头的网址。',
 		},
 		target: {
@@ -78,12 +78,21 @@ const translation = {
 			help: '帮助',
 			pro: 'Etcher 专业版',
 			website: 'Etcher 的官网',
-			issue: '提交一个 issue',
-			about: '关于 Etcher',
-			hide: '隐藏 Etcher',
+			issue: '提交一个 Issue',
+			devmenu: '开发商',
+			electrondevtools: '打开 Electron 开发工具',
+			testwindow: '打开测试窗口',
+			config: '编辑配置文件',
+			restart: '重新启动应用程序',
+			gpu: '打开 chrome://gpu',
+			procinternals: '打开 chrome://process-internals',
+			goback: '回去',
+			goforward: '前进',
+			about: '关于 Etcher-ng',
+			hide: '隐藏 Etcher-ng',
 			hideOthers: '隐藏其它窗口',
 			unhide: '取消隐藏',
-			quit: '退出 Etcher',
+			quit: '退出 Etcher-ng',
 		},
 		source: {
 			useSourceURL: '使用镜像网络地址',
@@ -114,7 +123,7 @@ const translation = {
 			select: '选定 {{select}}',
 			showHidden: '显示 {{num}} 个隐藏的磁盘',
 			systemDriveDanger: '选择系统盘很危险，因为这将会删除你的系统！',
-			openInBrowser: 'Etcher 会在浏览器中打开 {{link}}',
+			openInBrowser: 'Etcher-ng 会在浏览器中打开 {{link}}',
 			changeTarget: '改变目标',
 			largeDriveWarning: '您即将擦除一个非常大的磁盘',
 			largeDriveWarningMsg: '您确定所选磁盘不是存储磁盘吗？',
@@ -142,9 +151,14 @@ const translation = {
 		},
 		settings: {
 			errorReporting: '匿名地向 balena.io 报告运行错误和使用统计',
+			verify: '刷机后自动验证',
+			verifyDesc: '验证驱动器写入是否正确',
 			autoUpdate: '自动更新',
 			settings: '软件设置',
 			systemInformation: '系统信息',
+			trimExtPartitions: '修剪原始图像上未分配的空间（在 ext 类型分区中）',
+			decompressFirst:
+				'在刷新之前解压缩压缩图像（即 .tar.xz）',
 		},
 	},
 };

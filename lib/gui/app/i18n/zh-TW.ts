@@ -10,7 +10,7 @@ const translation = {
 		failed: '失敗',
 		completed: '完成',
 		yesContinue: '是的，繼續',
-		reallyExit: '真的要現在結束 Etcher 嗎？',
+		reallyExit: '真的要現在結束 Etcher-ng 嗎？',
 		yesExit: '是的，可以結束',
 		progress: {
 			starting: '正在啟動……',
@@ -39,7 +39,7 @@ const translation = {
 			andFailTarget_other: '並燒錄失敗了 {{num}} 個目標',
 			succeedTo: '{{name}} 被成功燒錄 {{target}}',
 			exitWhileFlashing:
-				'您目前正在刷寫。關閉 Etcher 可能會導致您的磁碟無法使用。',
+				'您目前正在刷寫。關閉 Etcher-ng 可能會導致您的磁碟無法使用。',
 			looksLikeWindowsImage:
 				'看起來您正在嘗試燒錄 Windows 映像檔。\n\n與其他映像檔不同，Windows 映像檔需要特殊處理才能使其可啟動。我們建議您使用專門為此目的設計的工具，例如 <a href="https://rufus.akeo.ie">Rufus</a> (Windows)、<a href="https://github. com/slacka/WoeUSB">WoeUSB</a> (Linux) 或 Boot Camp 助理 (macOS)。',
 			image: '映像檔',
@@ -54,15 +54,15 @@ const translation = {
 			genericFlashError:
 				'出了點問題。如果來源映像檔曾被壓縮過，請檢查它是否已損壞。\n{{error}}',
 			validation:
-				'寫入已成功完成，但 Etcher 在從磁碟讀取映像檔時檢測到潛在的損壞問題。\n\n請考慮將映像檔寫入其他磁碟。',
+				'寫入已成功完成，但 Etcher-ng 在從磁碟讀取映像檔時檢測到潛在的損壞問題。\n\n請考慮將映像檔寫入其他磁碟。',
 			openError: '打開 {{source}} 時發生錯誤。\n\n錯誤訊息： {{error}}',
 			flashError: '燒錄 {{image}} {{targets}} 失敗。',
 			unplug:
-				'看起來 Etcher 失去了對磁碟的連接。是不是被意外拔掉了？\n\n有時這個錯誤是因為讀卡器出了故障。',
+				'看起來 Etcher-ng 失去了對磁碟的連接。是不是被意外拔掉了？\n\n有時這個錯誤是因為讀卡器出了故障。',
 			cannotWrite:
-				'看起來 Etcher 無法寫入磁碟的這個位置。此錯誤通常是由故障的磁碟、讀取器或連接埠引起的。\n\n請使用其他磁碟、讀卡器或連接埠重試。',
+				'看起來 Etcher-ng 無法寫入磁碟的這個位置。此錯誤通常是由故障的磁碟、讀取器或連接埠引起的。\n\n請使用其他磁碟、讀卡器或連接埠重試。',
 			childWriterDied:
-				'寫入處理程序意外崩潰。請再試一次，如果問題仍然存在，請聯絡 Etcher 團隊。',
+				'寫入處理程序意外崩潰。請再試一次，如果問題仍然存在，請聯絡 Etcher-ng 團隊。',
 			badProtocol: '僅支援 http:// 和 https:// 開頭的網址。',
 		},
 		target: {
@@ -100,7 +100,7 @@ const translation = {
 			select: '選取 {{select}}',
 			showHidden: '顯示 {{num}} 個隱藏的磁碟',
 			systemDriveDanger: '選擇系統分割區很危險，因為這將會刪除你的系統！',
-			openInBrowser: 'Etcher 會在瀏覽器中打開 {{link}}',
+			openInBrowser: 'Etcher-ng 會在瀏覽器中打開 {{link}}',
 			changeTarget: '更改目標',
 			largeDriveWarning: '您即將格式化一個非常大的磁碟',
 			largeDriveWarningMsg: '您確定所選磁碟不是儲存資料的磁碟嗎？',
@@ -128,10 +128,14 @@ const translation = {
 		},
 		settings: {
 			errorReporting: '匿名向 balena.io 回報程式錯誤和使用統計資料',
+			verify: '刷機後自動驗證',
+			verifyDesc: '驗證驅動器寫入是否正確',
 			autoUpdate: '自動更新',
 			settings: '軟體設定',
 			systemInformation: '系統資訊',
 			trimExtPartitions: '修改原始映像檔上未分配的空間（在 ext 類型分割區中）',
+			decompressFirst:
+				'在刷新之前解壓縮壓縮影像（即 .tar.xz）',
 		},
 		menu: {
 			edit: '編輯',
@@ -141,12 +145,21 @@ const translation = {
 			help: '協助',
 			pro: 'Etcher 專業版',
 			website: 'Etcher 的官網',
-			issue: '提交 issue',
-			about: '關於 Etcher',
-			hide: '隱藏 Etcher',
+			issue: '提交 Issue',
+			devmenu: '開發商',
+			electrondevtools: '開啟 Electron 開發工具',
+			testwindow: '開啟測試視窗',
+			config: '編輯設定檔',
+			restart: '重新啟動應用程式',
+			gpu: '打開 chrome://gpu',
+			procinternals: '打開 chrome://process-internals',
+			goback: '回去',
+			goforward: '前進',
+			about: '關於 Etcher-ng',
+			hide: '隱藏 Etcher-ng',
 			hideOthers: '隱藏其它視窗',
 			unhide: '取消隱藏',
-			quit: '結束 Etcher',
+			quit: '結束 Etcher-ng',
 		},
 	},
 };
