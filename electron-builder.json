@@ -1,5 +1,5 @@
 {
-  "electronVersion": "13.6.9",
+  "electronVersion": "22.3.27",
   "asar": false,
   "npmRebuild": true,
   "nodeGypRebuild": false,

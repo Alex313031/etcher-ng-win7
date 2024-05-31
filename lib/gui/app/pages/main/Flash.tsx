@@ -15,6 +15,7 @@
  */
 
 import CircleSvg from '@fortawesome/fontawesome-free/svgs/solid/circle.svg';
+import * as remote from '@electron/remote';
 import * as _ from 'lodash';
 import * as path from 'path';
 import * as React from 'react';
@@ -37,6 +38,7 @@ import {
 
 import FlashSvg from '../../../assets/flash.svg';
 import DriveStatusWarningModal from '../../components/drive-status-warning-modal/drive-status-warning-modal';
+import * as i18next from 'i18next';
 
 const COMPLETED_PERCENTAGE = 100;
 const SPEED_PRECISION = 2;
@@ -98,7 +100,13 @@ async function flashImageToDrive(
 	// otherwise Windows throws EPERM
 	driveScanner.stop();
 
-	const iconPath = path.join('media', 'icon48.png');
+	const isDev = !remote.app.isPackaged;
+	let iconPath;
+	if (isDev) {
+		iconPath = path.join('media', 'icon48.png');
+	} else {
+		iconPath = path.join('media', 'icon48.png');
+	}
 	const basename = path.basename(image.path);
 	try {
 		await imageWriter.flash(image, drives);
@@ -293,9 +301,17 @@ export class FlashStep extends React.PureComponent<
 								color="#7e8085"
 								width="100%"
 							>
-								<Txt>{this.props.speed.toFixed(SPEED_PRECISION)} MB/s</Txt>
+								<Txt>
+									{i18next.t('flash.speedShort', {
+										speed: this.props.speed.toFixed(SPEED_PRECISION),
+									})}
+								</Txt>
 								{!_.isNil(this.props.eta) && (
-									<Txt>ETA: {formatSeconds(this.props.eta)}</Txt>
+									<Txt>
+										{i18next.t('flash.eta', {
+											eta: formatSeconds(this.props.eta),
+										})}
+									</Txt>
 								)}
 							</Flex>
 						)}

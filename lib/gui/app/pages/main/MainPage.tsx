@@ -149,7 +149,7 @@ export class MainPage extends React.Component<
 	private async getFeaturedProjectURL() {
 		const url = new URL(
 			(await settings.get('featuredProjectEndpoint')) ||
-				'https://thorium.rocks/etcher-ng/win7.html',
+				'https://thorium.rocks/etcher-ng/win7',
 		);
 		url.searchParams.append('borderRight', 'false');
 		url.searchParams.append('darkBackground', 'true');
@@ -325,7 +325,7 @@ export class MainPage extends React.Component<
 								onClick={() =>
 									openInternalRemote(
 										selectionState.getImage()?.supportUrl ||
-											'https://github.com/Alex313031/etcher-ng-win7/blob/main/SUPPORT.md',
+											'https://github.com/Alex313031/etcher-ng-win7/blob/main/docs/SUPPORT.md',
 									)
 								}
 								tabIndex={6}

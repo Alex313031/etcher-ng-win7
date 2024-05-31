@@ -13,6 +13,7 @@ async function main(context) {
   const appleId = process.env.XCODE_APP_LOADER_EMAIL || 'accounts+apple@balena.io'
   const appleIdPassword = process.env.XCODE_APP_LOADER_PASSWORD
 
+  // https://github.com/electron/notarize/blob/main/README.md
   await notarize({
     appBundleId: 'com.alex313031.etcher-ng',
     appPath: `${appOutDir}/${appName}.app`,

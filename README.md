@@ -32,128 +32,32 @@ installers for all supported operating systems.
 
 ## Packages
 
-> [![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com) \
-Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com).
-Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
-enables your organization to create, store and share packages in any format, to any place, with total
-confidence.
-
 #### Debian and Ubuntu based Package Repository (GNU/Linux x86/x64)
 
-> Detailed or alternative steps in the [instructions by Cloudsmith](https://cloudsmith.io/~balena/repos/etcher/setup/#formats-deb)
+Package for Debian and Ubuntu can be downloaded from the [Github release page](https://github.com/balena-io/etcher/releases/)
 
-1. Add Etcher Debian repository:
-
-   ```sh
-   curl -1sLf \
-      'https://dl.cloudsmith.io/public/balena/etcher/setup.deb.sh' \
-      | sudo -E bash
-   ```
-
-2. Update and install:
+##### Install .deb file using apt
 
    ```sh
-   sudo apt-get update
-   sudo apt-get install balena-etcher-electron
+      sudo apt install ./balena-etcher_******_amd64.deb
    ```
 
 ##### Uninstall
 
-```sh
-sudo apt-get remove balena-etcher-electron
-rm /etc/apt/sources.list.d/balena-etcher.list
-apt-get clean
-rm -rf /var/lib/apt/lists/*
-apt-get update
-```
+   ```sh
+      sudo apt remove balena-etcher
+   ```
 
 #### Redhat (RHEL) and Fedora-based Package Repository (GNU/Linux x86/x64)
 
-> Detailed or alternative steps in the [instructions by Cloudsmith](https://cloudsmith.io/~balena/repos/etcher/setup/#formats-rpm)
-
-
-##### DNF
-
-1. Add Etcher rpm repository:
-
-   ```sh
-   curl -1sLf \
-      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-      | sudo -E bash
-   ```
-
-2. Update and install:
-
-   ```sh
-   sudo dnf install -y balena-etcher-electron
-   ```
-
-###### Uninstall
-
-```sh
-rm /etc/yum.repos.d/balena-etcher.repo
-rm /etc/yum.repos.d/balena-etcher-source.repo
-```
-
 ##### Yum
 
-1. Add Etcher rpm repository:
+Package for Fedora-based and Redhat can be downloaded from the [Github release page](https://github.com/balena-io/etcher/releases/)
 
-   ```sh
-   curl -1sLf \
-      'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-      | sudo -E bash
-   ```
-
-2. Update and install:
-
-   ```sh
-   sudo yum install -y balena-etcher-electron
-   ```
-
-###### Uninstall
+1. Install using yum
 
 ```sh
-sudo yum remove -y balena-etcher-electron
-rm /etc/yum.repos.d/balena-etcher.repo
-rm /etc/yum.repos.d/balena-etcher-source.repo
-```
-
-#### OpenSUSE LEAP & Tumbleweed install (zypper)
-
-1. Add the repo
-
-   ```sh
-   curl -1sLf \
-   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
-   | sudo -E bash
-   ```
-2. Update and install
-
-   ```sh
-   sudo zypper up
-   sudo zypper install balena-etcher-electron
-   ```
-
-##### Uninstall
-
-```sh
-sudo zypper rm balena-etcher-electron
-# remove the repo
-sudo zypper rr balena-etcher
-sudo zypper rr balena-etcher-source
-```
-
-#### Solus (GNU/Linux x64)
-
-```sh
-sudo eopkg it etcher
-```
-
-##### Uninstall
-
-```sh
-sudo eopkg rm etcher
+   sudo yum localinstall balena-etcher-***.x86_64.rpm
 ```
 
 #### Arch/Manjaro Linux (GNU/Linux x64)
@@ -170,20 +74,18 @@ yay -S balena-etcher
 yay -R balena-etcher
 ```
 
-#### Brew (macOS)
+#### WinGet (Windows)
 
-**Note**: Etcher has to be updated manually to point to new versions,
-so it might not refer to the latest version immediately after an Etcher
-release.
+This package is updated by [gh-action](https://github.com/vedantmgoyal2009/winget-releaser), and is kept up to date automatically.
 
 ```sh
-brew install balenaetcher
+winget install balenaEtcher #or Balena.Etcher
 ```
 
 ##### Uninstall
 
 ```sh
-brew uninstall balenaetcher
+winget uninstall balenaEtcher
 ```
 
 #### Chocolatey (Windows)
@@ -214,7 +116,7 @@ the [license].
 [etcher]: https://balena.io/etcher
 [electron]: https://electronjs.org/
 [electron-supported-platforms]: https://electronjs.org/docs/tutorial/support#supported-platforms
-[support]: https://github.com/balena-io/etcher/blob/master/SUPPORT.md
+[support]: https://github.com/balena-io/etcher/blob/master/docs/SUPPORT.md
 [contributing]: https://github.com/balena-io/etcher/blob/master/docs/CONTRIBUTING.md
 [user-documentation]: https://github.com/balena-io/etcher/blob/master/docs/USER-DOCUMENTATION.md
 [milestones]: https://github.com/balena-io/etcher/milestones

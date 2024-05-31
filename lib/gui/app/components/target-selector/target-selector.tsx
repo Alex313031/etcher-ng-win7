@@ -37,6 +37,7 @@ import TgtSvg from '../../../assets/tgt.svg';
 import DriveSvg from '../../../assets/drive.svg';
 import { warning } from '../../../../shared/messages';
 import { DrivelistDrive } from '../../../../shared/drive-constraints';
+import * as i18next from 'i18next';
 
 export const getDriveListLabel = () => {
 	return getSelectedDrives()
@@ -60,9 +61,9 @@ export const TargetSelectorModal = (
 ) => (
 	<DriveSelector
 		multipleSelection={true}
-		titleLabel="Select target"
+		titleLabel={i18next.t('target.selectTarget')}
+		emptyListLabel={i18next.t('target.plugTarget')}
 		tooltip="Choose target drive(s)"
-		emptyListLabel="Plug in a target drive"
 		emptyListIcon={<TgtSvg width="40px" />}
 		showWarnings={true}
 		selectedList={getSelectedDrives()}

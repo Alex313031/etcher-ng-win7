@@ -16,20 +16,20 @@
 
 import * as electron from 'electron';
 import * as electronLog from 'electron-log';
-import { logEvent } from '../../../modules/analytics';
 
 /**
  * @summary Open an external resource in a new BrowserWindow
  */
 export async function open(url: string) {
-	logEvent('Open internal link', { url });
-
 	if (url) {
 		electronLog.info(`Opening internal window to ` + `'` + url + `'`);
 		const newWin = new electron.BrowserWindow({
 			width: 1024,
 			height: 768,
 			useContentSize: true,
+			webPreferences: {
+				sandbox: true,
+			},
 		});
 		newWin.loadURL(url);
 		newWin.on('close', () => {

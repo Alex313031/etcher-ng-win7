@@ -33,7 +33,7 @@ export function middleEllipsis(input: string, limit: number): string {
 	//
 	// Etc.
 	if (limit < 3) {
-		throw new Error('middleEllipsis: Limit should be at least 3');
+		throw new Error('middleEllipsis: Ellipses Limit should be at least 3');
 	}
 
 	// Do nothing, the string doesn't need truncation.

@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as remoteMain from '@electron/remote/main';
 import * as electronLog from 'electron-log';
 import * as Store from 'electron-store';
 import * as contextMenu from 'electron-context-menu';
@@ -22,21 +23,26 @@ import { promises as fs } from 'fs';
 import { platform } from 'os';
 import * as path from 'path';
 import * as semver from 'semver';
+import * as lodash from 'lodash';
+
+import './app/i18n';
 
 import { packageType, version } from '../../package.json';
 import * as EXIT_CODES from '../shared/exit-codes';
-import { delay, getConfig } from '../shared/utils';
 import * as settings from './app/models/settings';
-import { logException } from './app/modules/analytics';
 import { buildWindowMenu } from './menu';
-import CONFIG_PATH from './app/models/settings';
+import * as i18n from 'i18next';
+import * as SentryMain from '@sentry/electron/main';
+import * as packageJSON from '../../package.json';
+import { anonymizeSentryData } from './app/modules/analytics';
 
 const customProtocol = 'etcher';
 const scheme = `${customProtocol}://`;
-const updatablePackageTypes = ['appimage', 'nsis', 'dmg'];
 const packageUpdatable = false;
 const packageUpdated = false;
-let mainWindow;
+let mainWindow: any = null;
+
+remoteMain.initialize();
 
 // Restrict main.log size to 100Kb
 electronLog.initialize();
@@ -48,6 +54,18 @@ const store = new Store();
 const isLinux = process.platform === 'linux';
 const isWin = process.platform === 'win32';
 const isMac = process.platform === 'darwin';
+
+async function checkForUpdates() {
+	electronLog.info('Auto-Updates disabled for this build');
+}
+
+function logMainProcessException(error: any) {
+	const shouldReportErrors = false;
+	console.error(error);
+	if (shouldReportErrors) {
+		SentryMain.captureException(error);
+	}
+}
 
 async function isFile(filePath: string): Promise<boolean> {
 	try {
@@ -83,6 +101,14 @@ async function getCommandLineURL(argv: string[]): Promise<string | undefined> {
 	}
 }
 
+const initSentryMain = lodash.once(() => {
+	const dsn =
+		settings.getSync('analyticsSentryToken') ||
+		lodash.get(packageJSON, ['analytics', 'sentry', 'token']);
+
+	SentryMain.init({ dsn, beforeSend: anonymizeSentryData });
+});
+
 const sourceSelectorReady = new Promise((resolve) => {
 	electron.ipcMain.on('source-selector-ready', resolve);
 });
@@ -105,6 +131,14 @@ electron.app.on('open-url', async (event, data) => {
 	event.preventDefault();
 	await selectImageURL(data);
 });
+
+interface AutoUpdaterConfig {
+	autoDownload?: boolean;
+	autoInstallOnAppQuit?: boolean;
+	allowPrerelease?: boolean;
+	fullChangelog?: boolean;
+	allowDowngrade?: boolean;
+}
 
 async function createMainWindow() {
 	const fullscreen = Boolean(await settings.get('fullscreen'));
@@ -138,18 +172,17 @@ async function createMainWindow() {
 		webPreferences: {
 			backgroundThrottling: false,
 			nodeIntegration: true,
+			nodeIntegrationInWorker: false,
 			contextIsolation: false,
+			sandbox: false,
 			devTools: true,
 			experimentalFeatures: true,
 			webviewTag: true,
 			zoomFactor: width / defaultWidth,
-			enableRemoteModule: true,
 		},
 	});
 
 	electron.app.setAsDefaultProtocolClient(customProtocol);
-
-	buildWindowMenu(mainWindow);
 
 	electron.nativeTheme.themeSource = 'dark';
 
@@ -179,6 +212,13 @@ async function createMainWindow() {
 		)}`,
 	);
 
+	const page = mainWindow.webContents;
+	remoteMain.enable(page);
+
+	page.once('did-frame-finish-load', async () => {
+		checkForUpdates();
+	});
+
 	mainWindow.on('close', () => {
 		if (mainWindow) {
 			store.set('windowDetails', {
@@ -205,8 +245,6 @@ async function createMainWindow() {
 
 	return mainWindow;
 }
-
-electron.app.allowRendererProcessReuse = false;
 
 electron.app.on('edit-config-file', () => {
 	if (isLinux) {
@@ -244,8 +282,8 @@ electron.app.on('window-all-closed', () => {
 // make use of it to ensure the browser window is completely destroyed.
 // See https://github.com/electron/electron/issues/5273
 electron.app.on('before-quit', () => {
-	electronLog.info('Etcher-ng is quitting now'),
-		electron.app.releaseSingleInstanceLock();
+	electronLog.info('Etcher-ng is quitting now');
+	electron.app.releaseSingleInstanceLock();
 	process.exit(EXIT_CODES.SUCCESS);
 });
 
@@ -293,6 +331,7 @@ contextMenu({
 						nodeIntegration: false,
 						nodeIntegrationInWorker: false,
 						experimentalFeatures: true,
+						sandbox: true,
 						devTools: true,
 					},
 				});
@@ -318,6 +357,7 @@ contextMenu({
 						nodeIntegration: false,
 						nodeIntegrationInWorker: false,
 						experimentalFeatures: true,
+						sandbox: true,
 						devTools: true,
 					},
 				});
@@ -340,6 +380,7 @@ contextMenu({
 						nodeIntegration: false,
 						nodeIntegrationInWorker: false,
 						experimentalFeatures: true,
+						sandbox: true,
 						devTools: true,
 					},
 				});
@@ -362,6 +403,7 @@ contextMenu({
 						nodeIntegration: false,
 						nodeIntegrationInWorker: false,
 						experimentalFeatures: true,
+						sandbox: true,
 						devTools: true,
 					},
 				});
@@ -376,6 +418,7 @@ async function main(): Promise<void> {
 	if (!electron.app.requestSingleInstanceLock()) {
 		electron.app.quit();
 	} else {
+		initSentryMain();
 		await electron.app.whenReady();
 		electron.app.commandLine.appendSwitch('ignore-gpu-blocklist');
 		const window = await createMainWindow();
@@ -387,9 +430,37 @@ async function main(): Promise<void> {
 			await selectImageURL(await getCommandLineURL(argv));
 		});
 		await selectImageURL(await getCommandLineURL(process.argv));
+
+		electron.ipcMain.on('change-lng', function (event, args) {
+			i18n.changeLanguage(args, () => {
+				console.log('Language changed to: ' + args);
+			});
+			if (mainWindow != null) {
+				buildWindowMenu(mainWindow);
+			} else {
+				console.log('Build menu failed. ');
+			}
+		});
+
+		electron.ipcMain.on('webview-dom-ready', (_, id) => {
+			const webview = electron.webContents.fromId(id);
+
+			// Open link in browser if it's opened as a 'foreground-tab'
+			webview.setWindowOpenHandler((event) => {
+				const url = new URL(event.url);
+				if (
+					(url.protocol === 'http:' || url.protocol === 'https:') &&
+					event.disposition === 'foreground-tab' &&
+					// Don't open links if they're disabled by the env var
+					!settings.getSync('disableExternalLinks')
+				) {
+					electron.shell.openExternal(url.href);
+				}
+				return { action: 'deny' };
+			});
+		});
 	}
 }
-
 main();
 
 console.time('ready-to-show');

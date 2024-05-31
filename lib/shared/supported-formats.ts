@@ -31,6 +31,7 @@ export const SUPPORTED_EXTENSIONS = [
 	'sdcard',
 	'vhd',
 	'wic',
+	'wim',
 	'xz',
 	'zip',
 ];

@@ -38,11 +38,19 @@ pids
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
-package-lock.json
-yarn.lock
+
+# TypeScript v1 declaration files
+typings/
+!/typings/
+!/lib/shared/typings
 
 # Compiled Etcher releases
 /dist
+
+#local development
+.yalc
+yarn.lock
+package-lock.json
 
 # Certificates
 *.spc
@@ -59,3 +67,9 @@ yarn.lock
 # VSCode files
 
 .vscode
+.gitsecret/keys/random_seed
+!*.secret
+secrets/APPLE_SIGNING_PASSWORD.txt
+secrets/WINDOWS_SIGNING_PASSWORD.txt
+secrets/XCODE_APP_LOADER_PASSWORD.txt
+secrets/WINDOWS_SIGNING.pfx

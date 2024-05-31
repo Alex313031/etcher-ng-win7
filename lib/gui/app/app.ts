@@ -15,6 +15,7 @@
  */
 
 import * as electron from 'electron';
+import * as remote from '@electron/remote';
 import * as sdk from 'etcher-sdk';
 import * as _ from 'lodash';
 import outdent from 'outdent';
@@ -38,6 +39,7 @@ import * as osDialog from './os/dialog';
 import * as windowProgress from './os/window-progress';
 import MainPage from './pages/main/MainPage';
 import './css/main.css';
+import * as i18next from 'i18next';
 
 window.addEventListener(
 	'unhandledrejection',
@@ -298,6 +300,8 @@ driveScanner.start();
 
 let popupExists = false;
 
+analytics.initAnalytics();
+
 window.addEventListener('beforeunload', async (event) => {
 	if (!flashState.isFlashing() || popupExists) {
 		analytics.logEvent('Close application', {
@@ -316,9 +320,9 @@ window.addEventListener('beforeunload', async (event) => {
 
 	try {
 		const confirmed = await osDialog.showWarning({
-			confirmationLabel: 'Yes, quit',
-			rejectionLabel: 'Cancel',
-			title: 'Are you sure you want to close Etcher-ng?',
+			confirmationLabel: i18next.t('yesExit'),
+			rejectionLabel: i18next.t('cancel'),
+			title: i18next.t('reallyExit'),
 			description: messages.warning.exitWhileFlashing(),
 		});
 		if (confirmed) {
@@ -327,8 +331,8 @@ window.addEventListener('beforeunload', async (event) => {
 			});
 
 			// This circumvents the 'beforeunload' event unlike
-			// electron.remote.app.quit() which does not.
-			electron.remote.process.exit(EXIT_CODES.SUCCESS);
+			// remote.app.quit() which does not.
+			remote.process.exit(EXIT_CODES.SUCCESS);
 		}
 
 		analytics.logEvent('Close rejected while flashing', {

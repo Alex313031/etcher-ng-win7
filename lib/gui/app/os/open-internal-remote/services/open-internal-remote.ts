@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import { remote } from 'electron';
+import * as remote from '@electron/remote';
 import * as electronLog from 'electron-log/renderer';
-import { logEvent } from '../../../modules/analytics';
 
 /**
  * @summary Open an external resource in a new BrowserWindow
  * using the remote module.
  */
 export async function open(url: string) {
-	logEvent('Open internal link', { url });
-
 	if (url) {
 		electronLog.info(`Opening remote internal window to ` + `'` + url + `'`);
 		const remoteWin = new remote.BrowserWindow({
 			width: 1024,
 			height: 768,
 			useContentSize: true,
+			webPreferences: {
+				sandbox: true,
+			},
 		});
 		remoteWin.loadURL(url);
 		remoteWin.on('close', () => {

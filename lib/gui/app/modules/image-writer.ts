@@ -71,7 +71,7 @@ function handleErrorLogging(
 	} else if (error.code === 'ENOSPC') {
 		analytics.logEvent('Out of space', eventData);
 	} else if (error.code === 'ECHILDDIED') {
-		analytics.logEvent('Child died unexpectedly', eventData);
+		analytics.logEvent('Child process died unexpectedly', eventData);
 	} else {
 		analytics.logEvent('Flash error', {
 			...eventData,

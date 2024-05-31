@@ -1,4 +1,4 @@
-owner: balena-io
-repo: etcher
+owner: Alex313031
+repo: etcher-ng-win7
 provider: github
 updaterCacheDirName: etcher-ng-updater

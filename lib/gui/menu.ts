@@ -17,35 +17,18 @@
 import * as Os from 'os';
 import * as electron from 'electron';
 import * as electronLog from 'electron-log';
+import { open as openAboutWindow } from './app/os/about-window/about';
 import { open as openInternal } from './app/os/open-internal/services/open-internal';
 import { open as openExternal } from './app/os/open-external/services/open-external';
+
+import * as i18next from 'i18next';
 
 /**
  * @summary Builds a native application menu for a given window
  */
 export function buildWindowMenu(window: electron.BrowserWindow) {
-	// Get version info
 	const appName = electron.app.getName();
-	const appVer = electron.app.getVersion();
-	const electronVer = process.versions.electron;
-	const chromeVer = process.versions.chrome;
-	const nodeVer = process.versions.node;
-	const v8Ver = process.versions.v8;
-	// Globally export what OS we are on
-	const isLinux = process.platform === 'linux';
-	const isWin = process.platform === 'win32';
 	const isMac = process.platform === 'darwin';
-	let currentOS;
-	if (isLinux) {
-		currentOS = 'Linux';
-	} else if (isWin) {
-		currentOS = 'Windows';
-	} else if (isMac) {
-		currentOS = 'MacOS';
-	} else {
-		currentOS = 'BSD';
-	}
-	const archType = Os.arch();
 	/**
 	 * @summary Toggle the main window's devtools
 	 */
@@ -69,19 +52,21 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 	const menuTemplate: electron.MenuItemConstructorOptions[] = [
 		{
 			role: 'editMenu',
+			label: i18next.t('menu.edit'),
 		},
 		{
 			role: 'viewMenu',
-			label: 'View',
+			label: i18next.t('menu.view'),
 		},
 		{
 			role: 'windowMenu',
+			label: i18next.t('menu.window'),
 		},
 		{
-			label: 'Developer',
+			label: i18next.t('menu.devmenu'),
 			submenu: [
 				{
-					label: 'Open Electron DevTools',
+					label: i18next.t('menu.electrondevtools'),
 					accelerator: isMac ? 'Cmd+Shift+F12' : 'F12',
 					click() {
 						toggleDevTools();
@@ -89,45 +74,65 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 				},
 				{ type: 'separator' },
 				{
-					label: 'Open chrome://gpu',
+					label: i18next.t('menu.gpu'),
 					accelerator: 'CmdorCtrl+Alt+G',
 					click() {
 						electronLog.info('Opening chrome://gpu');
-						const gpuWindow = new electron.BrowserWindow({
-							width: 900,
-							height: 700,
-							useContentSize: true,
-							title: 'GPU Internals',
-						});
-						gpuWindow.loadURL('chrome://gpu');
+						openInternal('chrome://gpu');
 					},
 				},
 				{
-					label: 'Open chrome://process-internals',
+					label: i18next.t('menu.procinternals'),
 					accelerator: 'CmdorCtrl+Alt+P',
 					click() {
 						electronLog.info('Opening chrome://process-internals');
 						openInternal('chrome://process-internals');
 					},
 				},
+				{ type: 'separator' },
 				{
-					label: 'Open Test Window',
+					label: i18next.t('menu.testwindow'),
 					accelerator: 'CmdorCtrl+N',
 					click() {
 						electronLog.info('Opening Test Window');
 						openInternal('https://www.google.com/');
 					},
 				},
+				{
+					label: 'Open File',
+					accelerator: 'Ctrl+Shift+O',
+					click() {
+						electron.dialog
+							.showOpenDialog({ properties: ['openFile'] })
+							.then((result) => {
+								electronLog.info('Opened file: ' + result.filePaths);
+								const openURI = result.filePaths;
+								const openWindow = new electron.BrowserWindow({
+									webPreferences: {
+										nodeIntegration: false,
+										nodeIntegrationInWorker: false,
+										contextIsolation: false,
+										sandbox: true,
+										experimentalFeatures: true,
+										webviewTag: true,
+										devTools: true,
+									},
+								});
+								openWindow.loadFile(openURI[0]);
+								openWindow.setTitle(openURI[0]);
+							});
+					},
+				},
 				{ type: 'separator' },
 				{
-					label: 'Edit Config File',
+					label: i18next.t('menu.config'),
 					click() {
 						electronLog.info('Editing Config File');
 						electron.app.emit('edit-config-file');
 					},
 				},
 				{
-					label: 'Restart App',
+					label: i18next.t('menu.restart'),
 					accelerator: 'CmdorCtrl+Alt+R',
 					click() {
 						electron.app.relaunch();
@@ -138,9 +143,10 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 		},
 		{
 			role: 'help',
+			label: i18next.t('menu.help'),
 			submenu: [
 				{
-					label: 'Etcher Pro',
+					label: i18next.t('menu.pro'),
 					click() {
 						openInternal(
 							'https://www.balena.io/etcher-pro?utm_source=etcher_menu&ref=etcher_menu',
@@ -148,38 +154,23 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					label: 'Etcher Website',
+					label: i18next.t('menu.website'),
 					click() {
 						openInternal('https://etcher.balena.io?ref=etcher_menu');
 					},
 				},
 				{
-					label: 'Report an Issue',
+					label: i18next.t('menu.issue'),
 					click() {
-						openExternal('https://github.com/Alex313031/etcher-ng/issues');
+						openExternal('https://github.com/Alex313031/etcher-ng-win7/issues');
 					},
 				},
 				{ type: 'separator' },
 				{
-					label: 'About Etcher-ng',
+					label: i18next.t('menu.about'),
 					accelerator: 'CmdorCtrl+Alt+A',
 					click() {
-						const info = [
-							appName + ' v' + appVer,
-							'',
-							'Electron : ' + electronVer,
-							'Chromium : ' + chromeVer,
-							'Node : ' + nodeVer,
-							'V8 : ' + v8Ver,
-							'OS : ' + currentOS + ' ' + archType,
-						];
-						electron.dialog.showMessageBox({
-							type: 'info',
-							title: 'About ' + appName,
-							message: info.join('\n'),
-							buttons: ['Ok'],
-						});
-						electronLog.info('Opened About window');
+						openAboutWindow();
 					},
 				},
 			],
@@ -192,25 +183,28 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 			submenu: [
 				{
 					role: 'about' as const,
-					label: 'About Etcher-ng',
+					label: i18next.t('menu.about'),
 				},
 				{
 					type: 'separator' as const,
 				},
 				{
 					role: 'hide' as const,
+					label: i18next.t('menu.hide'),
 				},
 				{
 					role: 'hideOthers' as const,
+					label: i18next.t('menu.hideOthers'),
 				},
 				{
 					role: 'unhide' as const,
+					label: i18next.t('menu.unhide'),
 				},
 				{
 					type: 'separator' as const,
 				},
 				{
-					label: 'Go Back',
+					label: i18next.t('menu.goback'),
 					accelerator: 'Alt+Left',
 					click(item, focusedWindow) {
 						if (focusedWindow) {
@@ -220,7 +214,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					label: 'Go Forward',
+					label: i18next.t('menu.goforward'),
 					accelerator: 'Alt+Right',
 					click(item, focusedWindow) {
 						if (focusedWindow) {
@@ -230,7 +224,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					label: 'Quit Etcher-ng',
+					label: i18next.t('menu.quit'),
 					accelerator: 'CmdOrCtrl+Q',
 					role: 'quit' as const,
 				},
@@ -241,7 +235,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 			label: appName,
 			submenu: [
 				{
-					label: 'Go Back',
+					label: i18next.t('menu.goback'),
 					accelerator: 'Alt+Left',
 					click(item, focusedWindow) {
 						if (focusedWindow) {
@@ -251,7 +245,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					label: 'Go Forward',
+					label: i18next.t('menu.goforward'),
 					accelerator: 'Alt+Right',
 					click(item, focusedWindow) {
 						if (focusedWindow) {
@@ -261,7 +255,7 @@ export function buildWindowMenu(window: electron.BrowserWindow) {
 					},
 				},
 				{
-					label: 'Quit Etcher-ng',
+					label: i18next.t('menu.quit'),
 					accelerator: 'CmdOrCtrl+Q',
 					role: 'quit' as const,
 				},

@@ -1,4 +1,3 @@
-import { DrivelistDrive } from '../../../shared/drive-constraints';
 /*
  * Copyright 2016 balena.io
  *
@@ -15,6 +14,7 @@ import { DrivelistDrive } from '../../../shared/drive-constraints';
  * limitations under the License.
  */
 
+import { DrivelistDrive } from '../../../shared/drive-constraints';
 import { SourceMetadata } from '../components/source-selector/source-selector';
 
 import * as availableDrives from './available-drives';

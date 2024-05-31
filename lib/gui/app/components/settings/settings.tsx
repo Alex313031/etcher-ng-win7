@@ -25,6 +25,8 @@ import * as analytics from '../../modules/analytics';
 import { open as openInternalRemote } from '../../os/open-internal-remote/services/open-internal-remote';
 import { open as openExternal } from '../../os/open-external/services/open-external';
 import { Modal } from '../../styled-components';
+import * as i18next from 'i18next';
+import { etcherProInfo } from '../../utils/etcher-pro-specific';
 
 interface Setting {
 	name: string;
@@ -35,16 +37,18 @@ async function getSettingsList(): Promise<Setting[]> {
 	const list: Setting[] = [
 		{
 			name: 'verify',
-			label: 'Auto Verify after flashing',
-			tooltip: 'Verify that the drive was written correctly',
+			label: i18next.t('settings.verify'),
+			tooltip: i18next.t('settings.verifyDesc'),
 		},
 		{
 			name: 'autoBlockmapping',
-			label: 'Trim unallocated space on raw images (in ext-type partitions)',
+			label: i18next.t('settings.trimExtPartitions'),
+			tooltip: i18next.t('settings.trimExtPartitions'),
 		},
 		{
 			name: 'decompressFirst',
-			label: 'Decompress compressed images (i.e. .tar.xz) before flashing',
+			label: i18next.t('settings.decompressFirst'),
+			tooltip: i18next.t('settings.decompressFirst'),
 		},
 	];
 	return list;
@@ -54,7 +58,7 @@ interface SettingsModalProps {
 	toggleModal: (value: boolean) => void;
 }
 
-const UUID = process.env.BALENA_DEVICE_UUID;
+const EPInfo = etcherProInfo();
 
 const InfoBox = (props: any) => (
 	<Box fontSize={14}>
@@ -62,6 +66,7 @@ const InfoBox = (props: any) => (
 		<TextWithCopy code text={props.value} copy={props.value} />
 	</Box>
 );
+
 export function SettingsModal({ toggleModal }: SettingsModalProps) {
 	const [settingsList, setCurrentSettingsList] = React.useState<Setting[]>([]);
 	React.useEffect(() => {
@@ -95,8 +100,8 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 	return (
 		<Modal
 			titleElement={
-				<Txt fontSize={24} mb={24}>
-					<u>Settings</u>
+				<Txt fontSize={24} mb={14}>
+					<u>{i18next.t('settings.settings')}</u>
 				</Txt>
 			}
 			done={() => toggleModal(false)}
@@ -116,10 +121,14 @@ export function SettingsModal({ toggleModal }: SettingsModalProps) {
 						</Flex>
 					);
 				})}
-				{UUID !== undefined && (
+				{EPInfo !== undefined && (
 					<Flex flexDirection="column">
-						<Txt fontSize={24}>System Information</Txt>
-						<InfoBox label="UUID" value={UUID.substr(0, 7)} />
+						<Txt fontSize={24}>{i18next.t('settings.systemInformation')}</Txt>
+						{EPInfo.get_serial() === undefined ? (
+							<InfoBox label="UUID" value={EPInfo.uuid} />
+						) : (
+							<InfoBox label="Serial" value={EPInfo.get_serial()} />
+						)}
 					</Flex>
 				)}
 				<Divider color="#00aeef" />
