@@ -148,11 +148,13 @@
   },
   "resolutions": {
     "@ronomon/direct-io": "git+https://github.com/Alex313031/direct-io.git",
+    "node-gyp-build": "git+https://github.com/Alex313031/node-gyp-build.git",
     "usb": "git+https://github.com/Alex313031/node-usb.git",
     "xxhash-addon": "1.5.0"
   },
   "overrides": {
     "@ronomon/direct-io": "git+https://github.com/Alex313031/direct-io.git",
+    "node-gyp-build": "git+https://github.com/Alex313031/node-gyp-build.git",
     "usb": "git+https://github.com/Alex313031/node-usb.git"
   },
   "engines": {

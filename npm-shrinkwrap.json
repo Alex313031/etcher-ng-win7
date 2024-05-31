@@ -10217,7 +10217,7 @@
     },
     "node_modules/etcher-sdk": {
       "version": "8.7.3",
-      "resolved": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#b3dfc4237aa7a5e4e2ff4ace45424c7c8c464659",
+      "resolved": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#33f0f735e733e3c80524e0afe3a0bd265b8255be",
       "dev": true,
       "license": "Apache-2.0",
       "dependencies": {
@@ -10244,12 +10244,13 @@
         "tslib": "2.6.2",
         "unbzip2-stream": "git+https://github.com/balena-io-modules/unbzip2-stream.git#4a54f56a25b58950f9e4277c56db2912d62242e7",
         "unzip-stream": "0.3.4",
+        "usb": "git+https://github.com/Alex313031/node-usb.git",
         "xxhash-addon": "1.5.0",
         "yauzl": "2.10.0",
         "zip-part-stream": "2.0.0"
       },
       "engines": {
-        "node": ">=16"
+        "node": ">=14 <=18"
       },
       "optionalDependencies": {
         "winusb-driver-generator": "2.1.2"
@@ -15335,9 +15336,9 @@
     },
     "node_modules/node-gyp-build": {
       "version": "4.8.1",
-      "resolved": "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.1.tgz",
-      "integrity": "sha512-OSs33Z9yWr148JZcbZd5WiAXhh/n9z8TxQcdMhIOlpN9AhWpLfvVFO73+m77bBABQMaY9XSvIa+qk0jlI7Gcaw==",
+      "resolved": "git+ssh://git@github.com/Alex313031/node-gyp-build.git#48f7f0f44d90afa9b04bb28da4ff5dad60cba3ed",
       "dev": true,
+      "license": "MIT",
       "bin": {
         "node-gyp-build": "bin.js",
         "node-gyp-build-optional": "optional.js",
@@ -20043,14 +20044,14 @@
     },
     "node_modules/usb": {
       "version": "2.4.4",
-      "resolved": "git+ssh://git@github.com/Alex313031/node-usb.git#be62638e59572bf60a3578deab71c33feb871fa2",
+      "resolved": "git+ssh://git@github.com/Alex313031/node-usb.git#c1abd658f691f0cd6ba19622981a4fd2f1bc073a",
       "dev": true,
       "hasInstallScript": true,
       "license": "MIT",
       "dependencies": {
         "@types/w3c-web-usb": "1.0.10",
         "node-addon-api": "4.3.0",
-        "node-gyp-build": "4.8.1"
+        "node-gyp-build": "git+https://github.com/Alex313031/node-gyp-build.git"
       },
       "engines": {
         "node": ">=14"
@@ -28881,7 +28882,7 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#b3dfc4237aa7a5e4e2ff4ace45424c7c8c464659",
+      "version": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#33f0f735e733e3c80524e0afe3a0bd265b8255be",
       "dev": true,
       "from": "etcher-sdk@git+https://github.com/Alex313031/etcher-sdk-win7.git",
       "requires": {
@@ -28908,6 +28909,7 @@
         "tslib": "2.6.2",
         "unbzip2-stream": "git+https://github.com/balena-io-modules/unbzip2-stream.git#4a54f56a25b58950f9e4277c56db2912d62242e7",
         "unzip-stream": "0.3.4",
+        "usb": "git+https://github.com/Alex313031/node-usb.git",
         "winusb-driver-generator": "2.1.2",
         "xxhash-addon": "1.5.0",
         "yauzl": "2.10.0",
@@ -31414,7 +31416,7 @@
       "dev": true,
       "requires": {
         "node-addon-api": "^3.1.0",
-        "node-gyp-build": "^4.2.1",
+        "node-gyp-build": "git+https://github.com/Alex313031/node-gyp-build.git",
         "readable-stream": "^3.6.0"
       },
       "dependencies": {
@@ -32794,10 +32796,9 @@
       }
     },
     "node-gyp-build": {
-      "version": "4.8.1",
-      "resolved": "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.1.tgz",
-      "integrity": "sha512-OSs33Z9yWr148JZcbZd5WiAXhh/n9z8TxQcdMhIOlpN9AhWpLfvVFO73+m77bBABQMaY9XSvIa+qk0jlI7Gcaw==",
-      "dev": true
+      "version": "git+ssh://git@github.com/Alex313031/node-gyp-build.git#48f7f0f44d90afa9b04bb28da4ff5dad60cba3ed",
+      "dev": true,
+      "from": "node-gyp-build@git+https://github.com/Alex313031/node-gyp-build.git"
     },
     "node-ipc": {
       "version": "9.2.1",
@@ -36308,13 +36309,13 @@
       }
     },
     "usb": {
-      "version": "git+ssh://git@github.com/Alex313031/node-usb.git#be62638e59572bf60a3578deab71c33feb871fa2",
+      "version": "git+ssh://git@github.com/Alex313031/node-usb.git#c1abd658f691f0cd6ba19622981a4fd2f1bc073a",
       "dev": true,
       "from": "usb@git+https://github.com/Alex313031/node-usb.git",
       "requires": {
         "@types/w3c-web-usb": "1.0.10",
         "node-addon-api": "4.3.0",
-        "node-gyp-build": "4.8.1"
+        "node-gyp-build": "git+https://github.com/Alex313031/node-gyp-build.git"
       },
       "dependencies": {
         "node-addon-api": {
