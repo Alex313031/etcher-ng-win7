@@ -64,20 +64,23 @@
       "npm run lint-css"
     ]
   },
+  "optionalDependencies": {
+    "winusb-driver-generator": "2.1.2"
+  },
   "devDependencies": {
     "@aws-sdk/client-sso-oidc": "3.583.0",
     "@balena/lint": "6.2.2",
     "@balena/sudo-prompt": "9.2.1-workaround-windows-amperstand-in-username-0849e215b947987a643fe5763902aea201255534",
-    "@electron/remote": "2.0.12",
+    "@electron/remote": "2.1.2",
     "@fortawesome/fontawesome-free": "5.15.4",
-    "@sentry/electron": "^4.1.2",
+    "@sentry/electron": "4.24.0",
     "@svgr/webpack": "5.5.0",
     "@types/chai": "4.3.16",
     "@types/copy-webpack-plugin": "8.0.1",
     "@types/debug": "4.1.12",
     "@types/mime-types": "2.1.4",
     "@types/mini-css-extract-plugin": "1.4.3",
-    "@types/mocha": "9.1.1",
+    "@types/mocha": "10.0.6",
     "@types/node": "16.18.78",
     "@types/node-ipc": "9.2.3",
     "@types/react": "16.14.60",
@@ -97,8 +100,8 @@
     "electron": "22.3.27",
     "electron-builder": "23.6.0",
     "electron-context-menu": "3.6.1",
-    "electron-log": "5.1.2",
-    "electron-mocha": "^11.0.2",
+    "electron-log": "5.1.5",
+    "electron-mocha": "11.0.2",
     "electron-notarize": "1.2.2",
     "electron-rebuild": "3.2.9",
     "electron-store": "8.2.0",
@@ -138,7 +141,6 @@
     "tslib": "2.6.2",
     "typescript": "4.6.4",
     "url-loader": "4.1.1",
-    "usb": "2.4.3",
     "uuid": "9.0.1",
     "webpack": "5.76.3",
     "webpack-cli": "4.10.0",
@@ -146,12 +148,12 @@
   },
   "resolutions": {
     "@ronomon/direct-io": "git+https://github.com/Alex313031/direct-io.git",
-    "usb": "2.4.3",
+    "usb": "git+https://github.com/Alex313031/node-usb.git",
     "xxhash-addon": "1.5.0"
   },
   "overrides": {
     "@ronomon/direct-io": "git+https://github.com/Alex313031/direct-io.git",
-    "usb": "2.4.3"
+    "usb": "git+https://github.com/Alex313031/node-usb.git"
   },
   "engines": {
     "node": ">=14 <=18"

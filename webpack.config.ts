@@ -394,8 +394,6 @@ const guiConfig = {
 			patterns: [
 				{ from: 'lib/gui/app/index.html', to: 'index.html' },
 				{ from: 'lib/gui/app/index.css', to: 'index.css' },
-				{ from: 'lib/gui/app/about.html', to: 'about.html' },
-				{ from: 'lib/gui/app/about.css', to: 'about.css' },
 				// electron-builder doesn't bundle folders named "assets"
 				// See https://github.com/electron-userland/electron-builder/issues/4545
 				{ from: 'lib/gui/assets/icon64.png', to: 'media/icon64.png' },
