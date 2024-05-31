@@ -38,7 +38,7 @@
         "copy-webpack-plugin": "8.1.1",
         "css-loader": "5.2.7",
         "d3": "5.16.0",
-        "debug": "4.3.4",
+        "debug": "4.3.5",
         "electron": "22.3.27",
         "electron-builder": "23.6.0",
         "electron-context-menu": "3.6.1",
@@ -8389,9 +8389,9 @@
       }
     },
     "node_modules/debug": {
-      "version": "4.3.4",
-      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz",
-      "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",
+      "version": "4.3.5",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.5.tgz",
+      "integrity": "sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==",
       "dev": true,
       "dependencies": {
         "ms": "2.1.2"
@@ -10217,7 +10217,7 @@
     },
     "node_modules/etcher-sdk": {
       "version": "8.7.3",
-      "resolved": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#33f0f735e733e3c80524e0afe3a0bd265b8255be",
+      "resolved": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#87fc26afdd3e4cc3f2660f051bb1b263ac872883",
       "dev": true,
       "license": "Apache-2.0",
       "dependencies": {
@@ -10230,7 +10230,7 @@
         "blockmap": "4.0.3",
         "check-disk-space": "2.1.0",
         "cyclic-32": "1.2.0",
-        "debug": "4.3.4",
+        "debug": "4.3.5",
         "drivelist": "11.2.2",
         "file-disk": "8.0.1",
         "file-type": "16.5.4",
@@ -20044,7 +20044,7 @@
     },
     "node_modules/usb": {
       "version": "2.4.4",
-      "resolved": "git+ssh://git@github.com/Alex313031/node-usb.git#c1abd658f691f0cd6ba19622981a4fd2f1bc073a",
+      "resolved": "git+ssh://git@github.com/Alex313031/node-usb.git#dd56c3467a03a277ec7936bb47bbd4afd3f3c33d",
       "dev": true,
       "hasInstallScript": true,
       "license": "MIT",
@@ -27483,9 +27483,9 @@
       }
     },
     "debug": {
-      "version": "4.3.4",
-      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz",
-      "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",
+      "version": "4.3.5",
+      "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.5.tgz",
+      "integrity": "sha512-pt0bNEmneDIvdL1Xsd9oDQ/wrQRkXDT4AUWlNZNPKvW5x/jyO9VFXkJUP07vQ2upmw5PlaITaPKc31jK13V+jg==",
       "dev": true,
       "requires": {
         "ms": "2.1.2"
@@ -28882,7 +28882,7 @@
       "dev": true
     },
     "etcher-sdk": {
-      "version": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#33f0f735e733e3c80524e0afe3a0bd265b8255be",
+      "version": "git+ssh://git@github.com/Alex313031/etcher-sdk-win7.git#87fc26afdd3e4cc3f2660f051bb1b263ac872883",
       "dev": true,
       "from": "etcher-sdk@git+https://github.com/Alex313031/etcher-sdk-win7.git",
       "requires": {
@@ -28895,7 +28895,7 @@
         "blockmap": "4.0.3",
         "check-disk-space": "2.1.0",
         "cyclic-32": "1.2.0",
-        "debug": "4.3.4",
+        "debug": "4.3.5",
         "drivelist": "11.2.2",
         "file-disk": "8.0.1",
         "file-type": "16.5.4",
@@ -36309,7 +36309,7 @@
       }
     },
     "usb": {
-      "version": "git+ssh://git@github.com/Alex313031/node-usb.git#c1abd658f691f0cd6ba19622981a4fd2f1bc073a",
+      "version": "git+ssh://git@github.com/Alex313031/node-usb.git#dd56c3467a03a277ec7936bb47bbd4afd3f3c33d",
       "dev": true,
       "from": "usb@git+https://github.com/Alex313031/node-usb.git",
       "requires": {
