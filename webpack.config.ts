@@ -387,15 +387,6 @@ const guiConfig = {
 	},
 	entry: {
 		gui: path.join(__dirname, 'lib', 'gui', 'app', 'renderer.ts'),
-		preload: path.join(
-			__dirname,
-			'lib',
-			'gui',
-			'app',
-			'os',
-			'about-window',
-			'preload.ts',
-		),
 	},
 	plugins: [
 		...commonConfig.plugins,
