@@ -354,8 +354,6 @@ const commonConfig = {
 		platformSpecificModule('win32', 'winusb-driver-generator'),
 		// Not needed but required by resin-corvus > os-locale > execa > cross-spawn
 		platformSpecificModule('none', 'spawn-sync'),
-		// debug addon fix
-		platformSpecificModule('none', 'xxhash-addon'),
 		// Not needed as we replace all requires for it
 		platformSpecificModule('none', 'node-pre-gyp', '{ find: () => {} }'),
 		// Not needed as we replace all requires for it

@@ -32,7 +32,7 @@
     "sanity-checks": "bash scripts/ci/ensure-all-file-extensions-in-gitattributes.sh",
     "start": "npm run build && electron .",
     "e": "electron .",
-    "dev": "npm run rebuild && webpack --no-optimization-minimize --config ./webpack.dev.config.ts && electron .",
+    "dev": "npm run rebuild && webpack --no-optimization-minimize --config ./webpack.dev.config.ts && npm run watch",
     "test-gui": "electron-mocha --recursive --reporter spec --window-config tests/gui/window-config.json --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox --renderer tests/gui/**/*.ts",
     "test-shared": "electron-mocha --recursive --reporter spec --require ts-node/register/transpile-only --require-main tests/gui/allow-renderer-process-reuse.ts --full-trace --no-sandbox tests/shared/**/*.ts",
     "test-macos": "npm run lint && npm run test-gui && npm run test-shared && npm run sanity-checks",
@@ -40,7 +40,7 @@
     "test-windows": "npm run lint && npm run test-gui && npm run test-shared && npm run sanity-checks",
     "test": "echo npm run test-{linux,windows,macos}",
     "watch": "webpack serve --no-optimization-minimize --config ./webpack.dev.config.ts",
-    "webpack": "webpack",
+    "webpack": "webpack --config ./webpack.config.ts",
     "dist": "npm run build && electron-builder",
     "distDir": "npm run build && electron-builder --dir",
     "distLinux": "npm run build && electron-builder -l",
@@ -149,8 +149,7 @@
   "resolutions": {
     "@ronomon/direct-io": "git+https://github.com/Alex313031/direct-io.git",
     "node-gyp-build": "git+https://github.com/Alex313031/node-gyp-build.git",
-    "usb": "git+https://github.com/Alex313031/node-usb.git",
-    "xxhash-addon": "1.5.0"
+    "usb": "git+https://github.com/Alex313031/node-usb.git"
   },
   "overrides": {
     "@ronomon/direct-io": "git+https://github.com/Alex313031/direct-io.git",
