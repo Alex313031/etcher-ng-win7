@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 # v1.18.12
 ## (2023-07-19)
 
+* Restore Windows 7/8 support and rebase against [upstream Etcher-ng](https://github.com/Alex313031/etcher-ng) [Alex313031]
+* Update some npm packages [Alex313031]
 * Update instructions for installing deb file [Jorge Capona]
 
 # v1.18.11
